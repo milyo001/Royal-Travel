@@ -282,8 +282,6 @@ C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netco
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.csprojAssemblyReference.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\staticwebassets\RoyalTravel.StaticWebAssets.Manifest.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\staticwebassets\RoyalTravel.StaticWebAssets.xml
-C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.RazorAssemblyInfo.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.RazorAssemblyInfo.cs
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.AssemblyInfoInputs.cache
@@ -344,3 +342,8 @@ C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netco
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.csproj.CopyComplete
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.dll
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.pdb
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Views\Reservation\Index.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Views\Rewards\Index.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Views\Rewards\About.cshtml.g.cs

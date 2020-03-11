@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RoyalTravel.Data.Models;
+using RoyalTravel.Services.User;
 
 namespace RoyalTravel
 {
@@ -21,8 +22,6 @@ namespace RoyalTravel
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-
         }
 
         public IConfiguration Configuration { get; }
@@ -43,7 +42,7 @@ namespace RoyalTravel
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
                     _ => "The field is required.");
             });
-
+            services.AddTransient<IUserService, UserService>();
 
 
         }

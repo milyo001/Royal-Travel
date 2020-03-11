@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using RoyalTravel.Data.Models
+
+@inject UserManager<ApplicationUser> userManager
+@model RoyalTravel.ViewModels.Rewards.RewardsInputModel
+
+
+@{
+    ViewData["Title"] = "Royal Rewards";
+}
+<head>
+    <link href="~/css/rewards.css" rel="stylesheet">
+</head>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+
+        <div class="list-group-item list-group-item-action bg-light">Points available: 
+        @Model.UserDataViewModel.Points</div>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  
+</div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Room type</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Points Earned</th>
+                    <th scope="col">Points Spend</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.StayViewModel)
+                {
+                    <tr>
+                        <td>@item.Hotel</td>
+                        <td>@item.RoomType</td>
+                        <td>@item.Rate</td>
+                        <td>@item.Price</td>
+                        <td>@item.PointsEarned</td>
+                        <td>@item.PointsSpend</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
+<!-- /#wrapper -->
+<!-- Bootstrap core JavaScript -->
+<script src="~/js/JsQuery/jquery.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+
+
+
