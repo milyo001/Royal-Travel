@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RoyalTravel.Data.Models
@@ -28,5 +29,9 @@ namespace RoyalTravel.Data.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+
+        public DateTime Arrival { get; set; }
+
+        public DateTime Departure { get; set; }
     }
 }

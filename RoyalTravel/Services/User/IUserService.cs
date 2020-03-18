@@ -8,6 +8,9 @@ namespace RoyalTravel.Services.User
 {
     public interface IUserService
     {
-        public ApplicationUser GetUser(string id);
+       ApplicationUser GetUser(string id);
+
+        bool EmailExists(string email);
+        
     }
 }

@@ -36,7 +36,9 @@ namespace RoyalTravel.Controllers
         public IActionResult Index()
         {
             var stayViewModel = new RewardsInputModel();
-           
+            var currentUser = userService.GetUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+
             var stayViewModelOne = new StayViewModel
             {
                 Hotel = "Royal Marina",
@@ -58,15 +60,15 @@ namespace RoyalTravel.Controllers
                 PointsSpend = 0,
             };
 
-            
-
             stayViewModel.StayViewModel.Add(stayViewModelOne);
             stayViewModel.StayViewModel.Add(stayViewModelTwo);
 
-            stayViewModel.UserDataViewModel.Points = 
-                userService.GetUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier))
-                .Points.ToString();
-            //for testing only
+            stayViewModel.UserDataViewModel.Points = currentUser.Points.ToString();
+            var totalPointsForAllStays = stayViewModel.StayViewModel.Sum(s => s.Price) * ConstData.PointsMultiplier;
+            //get total points of all stays to detirmine the loyalty level (blue, silver, gold, diamond, etc)
+
+
+            //for testing only before I seed the database
 
             return View(stayViewModel);
         }
