@@ -22,33 +22,17 @@ namespace RoyalTravel.Data.Models
         [Required]
         public int TotalRooms { get; set; }
 
-        [ForeignKey(nameof(Amenity)), Required]
-        public int AmenityId { get; set; }
-
-        public Amenity Amenity { get; set; }
-
-        [ForeignKey(nameof(Review))]
-        public int? ReviewId { get; set; }
+        public Amenity Amenity { get; set; } = new Amenity();
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
 
-        [ForeignKey(nameof(Info)), Required]
-        public int InfoId { get; set; }
-
         public Info Info { get; set; }
-
-        [ForeignKey(nameof(Room)), Required]
-        public int RoomId { get; set; }
 
         public ICollection<Room> Rooms { get; set; } = new List<Room>();
 
-        [ForeignKey(nameof(Address)), Required]
-        public int AddressId { get; set; }
-
-        [ForeignKey(nameof(Stay))]
-        public int? StayId { get; set; }
+        public Address Address { get; set; } = new Address();
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
-        public Address Address { get; set; }
+        
     }
 }

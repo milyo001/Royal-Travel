@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RoyalTravel.Data.Models;
 using RoyalTravel.Services.User;
+using RoyalTravel.Services.Hotel;
 
 namespace RoyalTravel
 {
@@ -43,6 +44,7 @@ namespace RoyalTravel
                     _ => "The field is required.");
             });
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IHotelService, HotelService>();
 
 
         }
@@ -75,6 +77,7 @@ namespace RoyalTravel
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
             });
         }
     }

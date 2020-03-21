@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoyalTravel.Data;
 
 namespace RoyalTravel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200321135133_addAddressProperyInHotel")]
+    partial class addAddressProperyInHotel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,13 +270,13 @@ namespace RoyalTravel.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AmenityId")
+                    b.Property<int>("AmenityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("InfoId")
+                    b.Property<int>("InfoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -285,7 +287,16 @@ namespace RoyalTravel.Data.Migrations
                     b.Property<int?>("Rating")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Stars")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StayId")
                         .HasColumnType("int");
 
                     b.Property<int>("TotalRooms")
@@ -543,15 +554,21 @@ namespace RoyalTravel.Data.Migrations
                 {
                     b.HasOne("RoyalTravel.Data.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RoyalTravel.Data.Models.Amenity", "Amenity")
                         .WithMany()
-                        .HasForeignKey("AmenityId");
+                        .HasForeignKey("AmenityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RoyalTravel.Data.Models.Info", "Info")
                         .WithMany()
-                        .HasForeignKey("InfoId");
+                        .HasForeignKey("InfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RoyalTravel.Data.Models.Review", b =>

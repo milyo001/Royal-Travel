@@ -1,9 +1,11 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RoyalTravel.ViewModels.Booking
 {
+    
     public class BookingInputModel
     {
         [Required, StringLength(30)]
@@ -18,7 +20,6 @@ namespace RoyalTravel.ViewModels.Booking
         [Required]
         public int Adults { get; set; }
 
-        [Required]
         public int Kids { get; set; }
 
     }
