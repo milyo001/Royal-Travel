@@ -8,6 +8,9 @@ namespace RoyalTravel.ViewModels.Booking
     
     public class BookingOutputViewModel
     {
+
+        public int HotelId { get; set; }
+
         public string HotelName { get; set; }
 
         public string Address { get; set; }

@@ -41,7 +41,7 @@ namespace RoyalTravel.Controllers
 
             var stayViewModelOne = new StayViewModel
             {
-                Hotel = "Royal Marina",
+                Hotel = "Test1",
                 ArrivalDate = new DateTime(2020, 5, 22).ToString("dd/MM/yyyy"),
                 DepartureDate = new DateTime(2020, 5, 25).ToString("dd/MM/yyyy"),
                 RoomType = "2 Queen Beds",
@@ -51,7 +51,7 @@ namespace RoyalTravel.Controllers
             };
             var stayViewModelTwo = new StayViewModel
             {
-                Hotel = "Royal Jungle",
+                Hotel = "Test",
                 ArrivalDate = new DateTime(2020, 5, 28).ToString("dd/MM/yyyy"),
                 DepartureDate = new DateTime(2020, 5, 29).ToString("dd/MM/yyyy"),
                 RoomType = "1 King Bed",
@@ -63,6 +63,7 @@ namespace RoyalTravel.Controllers
             stayViewModel.StayViewModel.Add(stayViewModelOne);
             stayViewModel.StayViewModel.Add(stayViewModelTwo);
 
+            currentUser.Points += 500;
             stayViewModel.UserDataViewModel.Points = currentUser.Points.ToString();
             var totalPointsForAllStays = stayViewModel.StayViewModel.Sum(s => s.Price) * ConstData.PointsMultiplier;
             //get total points of all stays to detirmine the loyalty level (blue, silver, gold, diamond, etc)

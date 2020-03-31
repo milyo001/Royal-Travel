@@ -10,6 +10,7 @@ namespace RoyalTravel.Services.Hotel
     {
         Task<List<Data.Models.Hotel>> SearchWithLocationAsync(string searchLocation);
         Task<List<Data.Models.Hotel>> SearchWithHotelNameAsync(string hotelName);
+        Task<List<Data.Models.Hotel>> FindHotelById(int? id);
 
     }
 }

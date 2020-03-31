@@ -21,11 +21,12 @@ namespace RoyalTravel.Services.Hotel
         public async Task<List<Data.Models.Hotel>> SearchWithLocationAsync(string searchLocation)
         {
             var result = this.db.Hotels
-               .Where(h => h.Address.City.Contains(searchLocation) || searchLocation == null)
-               .Include(h => h.Address)
-               .Include(h => h.Amenity)
-               .Include(h => h.Info)
-               .ToList();
+              .Where(h => h.Address.City.Contains(searchLocation) || searchLocation == null)
+              .Include(h => h.Address)
+              .Include(h => h.Amenity)
+              .Include(h => h.Info)
+              .Take(20)
+              .ToList();
             return result;
         }
 
@@ -36,8 +37,22 @@ namespace RoyalTravel.Services.Hotel
                .Include(h => h.Address)
                .Include(h => h.Amenity)
                .Include(h => h.Info)
+               .Take(20)
                .ToList();
             return result;
+        }
+        
+
+        public Task<List<Data.Models.Hotel>> FindHotelById(int? id)
+        {
+            var hotel = db.Hotels
+                .Where(h => h.Id == id)
+                .Include(h=> h.Address)
+                .Include(h => h.Amenity)
+                .Include(h => h.Info)
+                .ToList();
+
+            return Task.FromResult(hotel);
         }
 
     }

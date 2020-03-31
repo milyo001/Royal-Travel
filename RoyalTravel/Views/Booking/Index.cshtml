@@ -1,4 +1,8 @@
-﻿@model IEnumerable<RoyalTravel.ViewModels.Booking.BookingOutputViewModel>
+﻿@{
+    ViewData["Title"] = "Hotels";
+}
+
+@model IEnumerable<RoyalTravel.ViewModels.Booking.BookingOutputViewModel>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +59,7 @@
                 </div>
             </div>
             <div style="margin-top:24px" class="row">
-                <button type="submit" asp-controller="Booking" asp-action="Index">Check Availability</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Booking" asp-action="Index">Find Hotels</button>
             </div>
         </form>
     </div>
@@ -63,7 +67,7 @@
     {
         <table class="table table-bordered">
             <thead>
-                <tr>
+                <tr align="center">
                     <th scope="col">Name</th>
                     <th scope="col">Location</th>
                     <th scope="col">Total Rooms</th>
@@ -76,14 +80,20 @@
             <tbody>
                 @foreach (var hotel in Model)
                 {
-                    <tr>
+                    <tr align="center">
+
                         <td>@hotel.HotelName</td>
                         <td>@hotel.Address</td>
                         <td>@hotel.TotalRooms</td>
-                        <td>@hotel.Rating</td>
+                        <td>@hotel.Rating/10</td>
                         <td>@hotel.Wifi</td>
                         <td>@hotel.Pool</td>
                         <td>@hotel.PetFriendly</td>
+                        <td>
+                            <form method="post">
+                                <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Select</a>
+                            </form>
+                        </td>
                     </tr>
                 }
 
