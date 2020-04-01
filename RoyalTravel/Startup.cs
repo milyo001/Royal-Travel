@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using RoyalTravel.Data.Models;
 using RoyalTravel.Services.User;
 using RoyalTravel.Services.Hotel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RoyalTravel
 {
@@ -36,7 +37,10 @@ namespace RoyalTravel
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
             services.AddRazorPages().AddMvcOptions(options =>
             {
                 options.MaxModelValidationErrors = 50;

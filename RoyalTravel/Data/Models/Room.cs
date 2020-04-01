@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,7 +21,7 @@ namespace RoyalTravel.Data.Models
 
         public bool AC { get; set; }
 
-        [Required, MaxLength(100)]
+        [Required, MaxLength(300)]
         public string Description { get; set; }
 
         [Required]
@@ -30,8 +31,6 @@ namespace RoyalTravel.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-        public DateTime Arrival { get; set; }
-
-        public DateTime Departure { get; set; }
+        public ICollection<Stay> Stays { get; set; }
     }
 }

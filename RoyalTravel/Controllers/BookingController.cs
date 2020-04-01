@@ -71,37 +71,27 @@ namespace RoyalTravel.Controllers
                 HotelName = hotel.Name,
                 Address = hotel.Address.Street
                  + ", " + hotel.Address.City + ", " + hotel.Address.State + ", " + hotel.Address.PostalCode,
-                AirportShuttle = IsAmenityAvailable(hotel.Amenity.AirportShuttle),
-                AllowPets = IsAmenityAvailable(hotel.Amenity.AllowPets),
-                Breakfast = IsAmenityAvailable(hotel.Amenity.Breakfast),
-                FitnessCenter = IsAmenityAvailable(hotel.Amenity.Fitness),
-                LocalShuttle = IsAmenityAvailable(hotel.Amenity.LocalShuttle),
-                Parking = IsAmenityAvailable(hotel.Amenity.Parking),
-                Pool = IsAmenityAvailable(hotel.Amenity.Pool),
-                WiFi = IsAmenityAvailable(hotel.Amenity.WiFi),
-                Restaurant = IsAmenityAvailable(hotel.Amenity.Restaurant),
+                AirportShuttle = hotel.Amenity.AirportShuttle,
+                AllowPets = hotel.Amenity.AllowPets,
+                Breakfast = hotel.Amenity.Breakfast,
+                FitnessCenter = hotel.Amenity.Fitness,
+                LocalShuttle = hotel.Amenity.LocalShuttle,
+                Parking = hotel.Amenity.Parking,
+                Pool = hotel.Amenity.Pool,
+                WiFi = hotel.Amenity.WiFi,
+                Restaurant = hotel.Amenity.Restaurant,
                 Description = hotel.Info.PropertyDescription,
                 Information = hotel.Info.AreaInfo + Environment.NewLine + hotel.Info.AmenitiesInfo,
                 CheckInTime = hotel.Info.CheckIn,
                 CheckOutTime = hotel.Info.CheckOut,
                 MinCheckInAge = hotel.Info.CheckIn,
-                Policies = hotel.Info.Policies
-
+                Policies = hotel.Info.Policies,
+                RoomTypes = hotel.Rooms
+                    .GroupBy(r => new {r.RoomType, r.Price, r.Smoking})
+                    .Select(g => g.First())
             };
             return this.View(hotelViewModel);
         }
-
-        private string IsAmenityAvailable(bool amenity)
-        {
-            if (amenity == false)
-            {
-                return "No";
-            }
-
-            return "Yes";
-        }
-
-        
 
     }
 }

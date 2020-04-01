@@ -1,0 +1,32 @@
+﻿tr {
+    text-align: center;
+    background-color: #6351ce;
+}
+
+td {
+    text-align: center;
+    background-color: #81bcfc;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.icon-bar{
+    margin-left: 10px;
+}

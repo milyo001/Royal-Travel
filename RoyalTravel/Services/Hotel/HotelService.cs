@@ -50,6 +50,8 @@ namespace RoyalTravel.Services.Hotel
                 .Include(h=> h.Address)
                 .Include(h => h.Amenity)
                 .Include(h => h.Info)
+                .Include(h => h.Rooms)
+                .Include(h => h.Reviews)
                 .ToList();
 
             return Task.FromResult(hotel);

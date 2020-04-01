@@ -8882,7 +8882,8 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 	while ( dataTypes[ 0 ] === "*" ) {
 		dataTypes.shift();
 		if ( ct === undefined ) {
-			ct = s.mimeType || jqXHR.getResponseHeader( "Content-Type" );
+			ct = s.
+				Type || jqXHR.getResponseHeader("Content-Type");
 		}
 	}
 

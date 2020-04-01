@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoyalTravel.Data;
 
 namespace RoyalTravel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200401065531_AddStayNavPropertyInRoomsTable")]
+    partial class AddStayNavPropertyInRoomsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -411,10 +413,16 @@ namespace RoyalTravel.Data.Migrations
                     b.Property<bool>("AC")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("Arrival")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Departure")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<int?>("HotelId")
                         .HasColumnType("int");
@@ -490,7 +498,8 @@ namespace RoyalTravel.Data.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("RoomId")
+                        .IsUnique();
 
                     b.ToTable("Stays");
                 });
@@ -575,8 +584,8 @@ namespace RoyalTravel.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("RoyalTravel.Data.Models.Room", "Room")
-                        .WithMany("Stays")
-                        .HasForeignKey("RoomId")
+                        .WithOne("Stay")
+                        .HasForeignKey("RoyalTravel.Data.Models.Stay", "RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
