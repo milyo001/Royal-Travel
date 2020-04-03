@@ -23,7 +23,7 @@ namespace RoyalTravel.Controllers
 
         
         
-        public IActionResult Index(List<BookingOutputViewModel> hotelViewModels)
+        public IActionResult Index(List<BookingOutputViewModel> hotelViewModels = null)
         {  
             return View(hotelViewModels);
         }

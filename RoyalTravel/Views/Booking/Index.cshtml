@@ -33,7 +33,7 @@
                 </div>
                 <div class="col">
                     <label for="datepicker2">Check out</label>
-                    <input id="datepicker2" width="220" name="checkOut"/>
+                    <input id="datepicker2" width="220" name="checkOut" />
                 </div>
                 <div class="col">
                     <label for="adults">Adults</label>
@@ -63,7 +63,8 @@
             </div>
         </form>
     </div>
-    @if (Model != null)
+
+    @if (Model.Count() != 0)
     {
         <table class="table table-bordered">
             <thead>
@@ -80,32 +81,34 @@
             <tbody>
                 @foreach (var hotel in Model)
                 {
-                <tr align="center">
+                    <tr align="center">
 
-                    <td>@hotel.HotelName</td>
-                    <td>@hotel.Address</td>
-                    <td>@hotel.TotalRooms</td>
-                    <td>@hotel.Rating/10</td>
-                    <td>@hotel.Wifi</td>
-                    <td>@hotel.Pool</td>
-                    <td>@hotel.PetFriendly</td>
-                    <td>
-                        <form method="get">
-                            <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Check Rates</a>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="get">
-                            <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
-                        </form>
-                    </td>
+                        <td>@hotel.HotelName</td>
+                        <td>@hotel.Address</td>
+                        <td>@hotel.TotalRooms</td>
+                        <td>@hotel.Rating/10</td>
+                        <td>@hotel.Wifi</td>
+                        <td>@hotel.Pool</td>
+                        <td>@hotel.PetFriendly</td>
+                        <td>
+                            <form method="get">
+                                <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Check Rates</a>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get">
+                                <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
+                            </form>
+                        </td>
 
-                </tr>
+                    </tr>
                 }
 
             </tbody>
         </table>
     }
+   
+
 
 
 
