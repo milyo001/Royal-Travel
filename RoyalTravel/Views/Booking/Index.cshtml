@@ -21,7 +21,7 @@
 
 <body>
     <div class="parent">
-        <form method="POST" asp-controller="Booking" asp-action="SearchHotels" asp-validation-summary="All">
+        <form method="get" asp-controller="Booking" asp-action="SearchHotels" asp-validation-summary="All">
             <div class="row">
                 <div class="col">
                     <label for="searchInput">Destination</label>
@@ -29,15 +29,15 @@
                 </div>
                 <div class="col">
                     <label for="datepicker">Check in</label>
-                    <input id="datepicker" width="220" name="datepicker" />
+                    <input id="datepicker" width="220" name="checkIn" />
                 </div>
                 <div class="col">
                     <label for="datepicker2">Check out</label>
-                    <input id="datepicker2" width="220" />
+                    <input id="datepicker2" width="220" name="checkOut"/>
                 </div>
                 <div class="col">
                     <label for="adults">Adults</label>
-                    <select class="form-control" id="adults" width="276">
+                    <select class="form-control" id="adults" width="276" name="adults">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col">
                     <label for="kids">Children</label>
-                    <select class="form-control" id="kids" width="276">
+                    <select class="form-control" id="kids" width="276" name="children">
                         <option>0</option>
                         <option>1</option>
                         <option>2</option>
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div style="margin-top:24px" class="row">
-                <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Booking" asp-action="Index">Find Hotels</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Booking" asp-action="SearchHotels">Find Hotels</button>
             </div>
         </form>
     </div>
@@ -80,21 +80,27 @@
             <tbody>
                 @foreach (var hotel in Model)
                 {
-                    <tr align="center">
+                <tr align="center">
 
-                        <td>@hotel.HotelName</td>
-                        <td>@hotel.Address</td>
-                        <td>@hotel.TotalRooms</td>
-                        <td>@hotel.Rating/10</td>
-                        <td>@hotel.Wifi</td>
-                        <td>@hotel.Pool</td>
-                        <td>@hotel.PetFriendly</td>
-                        <td>
-                            <form method="post">
-                                <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Select</a>
-                            </form>
-                        </td>
-                    </tr>
+                    <td>@hotel.HotelName</td>
+                    <td>@hotel.Address</td>
+                    <td>@hotel.TotalRooms</td>
+                    <td>@hotel.Rating/10</td>
+                    <td>@hotel.Wifi</td>
+                    <td>@hotel.Pool</td>
+                    <td>@hotel.PetFriendly</td>
+                    <td>
+                        <form method="get">
+                            <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Check Rates</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="get">
+                            <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
+                        </form>
+                    </td>
+
+                </tr>
                 }
 
             </tbody>

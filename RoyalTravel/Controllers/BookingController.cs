@@ -22,14 +22,14 @@ namespace RoyalTravel.Controllers
         }
 
         
-        [HttpGet]
-        public IActionResult Index()
+        
+        public IActionResult Index(List<BookingOutputViewModel> hotelViewModels)
         {  
-            return View();
+            return View(hotelViewModels);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Index(string searchInput, string checkIn, string checkOut, int adults, int kids)
+        
+        public async Task<IActionResult> SearchHotels(string searchInput, string checkIn, string checkOut, int adults, int kids)
         {
             var searchedHotelsByCity =   await this.hotelService.SearchWithLocationAsync(searchInput);
             var searchedHotelsByName = await this.hotelService.SearchWithHotelNameAsync(searchInput);
@@ -57,7 +57,7 @@ namespace RoyalTravel.Controllers
             }
             //TODO Implement Paging 
 
-            return this.View(hotelViewModel);
+            return this.View("Index", hotelViewModel);
 
         }
 
