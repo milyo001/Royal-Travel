@@ -37,6 +37,7 @@ namespace RoyalTravel.Services.Hotel
                .Include(h => h.Address)
                .Include(h => h.Amenity)
                .Include(h => h.Info)
+               .Include(h=> h.Rooms)
                .Take(20)
                .ToList();
             return result;

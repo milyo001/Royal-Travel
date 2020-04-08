@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using RoyalTravel.Data.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -15,7 +16,7 @@ namespace RoyalTravel.ViewModels.Booking
 
         public string Address { get; set; }
 
-        public string TotalRooms { get; set; }
+        public List<Room> AvailableRooms { get; set; }
 
         public string Rating { get; set; }
 

@@ -5,6 +5,7 @@ using RoyalTravel.Services.Hotel;
 using RoyalTravel.ViewModels.Booking;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,23 +22,23 @@ namespace RoyalTravel.Controllers
             this.hotelService = hotelService;
         }
 
-        
-        
+
+
         public IActionResult Index(List<BookingOutputViewModel> hotelViewModels = null)
-        {  
+        {
             return View(hotelViewModels);
         }
 
-        
-        public async Task<IActionResult> SearchHotels(string searchInput, string checkIn, string checkOut, int adults, int kids)
+
+        public async Task<IActionResult> SearchHotels(string searchInput, string checkIn, string checkOut, int adults, int children)
         {
-            var searchedHotelsByCity =   await this.hotelService.SearchWithLocationAsync(searchInput);
+            var searchedHotelsByCity = await this.hotelService.SearchWithLocationAsync(searchInput);
             var searchedHotelsByName = await this.hotelService.SearchWithHotelNameAsync(searchInput);
-            
+
             var searchResultList = new List<Data.Models.Hotel>();
             searchResultList = searchedHotelsByCity.Count == 0 ? searchedHotelsByName : searchedHotelsByCity;
             //Searching with city is with priority and searching with name is optional
-            
+
 
             var hotelViewModel = new List<BookingOutputViewModel>();
 
@@ -48,7 +49,7 @@ namespace RoyalTravel.Controllers
                 currentViewModelHotel.HotelName = hotel.Name;
                 currentViewModelHotel.Address = hotel.Address.Street
                  + ", " + hotel.Address.City + ", " + hotel.Address.State + ", " + hotel.Address.PostalCode;
-                currentViewModelHotel.TotalRooms = hotel.TotalRooms.ToString();
+                currentViewModelHotel.AvailableRooms = hotel.Rooms.Where(r => r.Available && r.HotelId == hotel.Id).ToList();
                 currentViewModelHotel.PetFriendly = hotel.Amenity.AllowPets == true ? "Yes" : "No";
                 currentViewModelHotel.Wifi = hotel.Amenity.WiFi == true ? "Yes" : "No";
                 currentViewModelHotel.Pool = hotel.Amenity.Pool == true ? "Yes" : "No";
@@ -87,11 +88,37 @@ namespace RoyalTravel.Controllers
                 MinCheckInAge = hotel.Info.CheckIn,
                 Policies = hotel.Info.Policies,
                 RoomTypes = hotel.Rooms
-                    .GroupBy(r => new {r.RoomType, r.Price, r.Smoking})
+                    .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
                     .Select(g => g.First())
             };
             return this.View(hotelViewModel);
         }
 
+
+        public async Task<IActionResult> BookHotel(int? id, string checkIn, string checkOut, int adults, int children)
+        {
+            //TODO Validation
+            var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            int nightsStay = (checkOutDate - checkInDate).Days;
+
+            var hotelQuery = await hotelService.FindHotelById(id);
+            var selectedHotel = hotelQuery.FirstOrDefault();
+
+            var bookHotelViewModel = new MakeBookingViewModel()
+            {
+                HotelId = selectedHotel.Id,
+                HotelName = selectedHotel.Name,
+                CheckIn = checkIn,
+                CheckOut = checkOut,
+                Adults = adults,
+                Children = children,
+                NumberOfNights = nightsStay
+            };
+
+
+            return this.View(bookHotelViewModel);
+
+        }
     }
 }

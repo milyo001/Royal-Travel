@@ -33,6 +33,8 @@ namespace RoyalTravel.Data.Models
         public Address Address { get; set; } = new Address();
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
-        
+
+        public byte[] Image { get; set; }
+
     }
 }

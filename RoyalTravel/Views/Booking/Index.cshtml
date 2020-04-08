@@ -29,15 +29,15 @@
                 </div>
                 <div class="col">
                     <label for="datepicker">Check in</label>
-                    <input id="datepicker" width="220" name="checkIn" />
+                    <input id="datepicker" width="220" name="checkIn" required/>
                 </div>
                 <div class="col">
                     <label for="datepicker2">Check out</label>
-                    <input id="datepicker2" width="220" name="checkOut" />
+                    <input id="datepicker2" width="220" name="checkOut" required/>
                 </div>
                 <div class="col">
                     <label for="adults">Adults</label>
-                    <select class="form-control" id="adults" width="276" name="adults">
+                    <select class="form-control" id="adults" width="276" name="adults" required>
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -71,7 +71,7 @@
                 <tr align="center">
                     <th scope="col">Name</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Total Rooms</th>
+                    <th scope="col">Rooms available</th>
                     <th scope="col">Rating</th>
                     <th scope="col">Wifi</th>
                     <th scope="col">Pool</th>
@@ -85,14 +85,19 @@
 
                         <td>@hotel.HotelName</td>
                         <td>@hotel.Address</td>
-                        <td>@hotel.TotalRooms</td>
+                        <td>@hotel.AvailableRooms.Count</td>
                         <td>@hotel.Rating/10</td>
                         <td>@hotel.Wifi</td>
                         <td>@hotel.Pool</td>
                         <td>@hotel.PetFriendly</td>
                         <td>
                             <form method="get">
-                                <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Check Rates</a>
+                                <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="BookHotel"
+                                   asp-route-id="@hotel.HotelId" 
+                                   asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
+                                   asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
+                                   asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
+                                   asp-route-children="@ViewContext.HttpContext.Request.Query["children"]">Check Rates</a>
                             </form>
                         </td>
                         <td>

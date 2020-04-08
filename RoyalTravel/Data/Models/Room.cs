@@ -19,7 +19,7 @@ namespace RoyalTravel.Data.Models
 
         public bool WithBreakfast { get; set; }
 
-        public bool AC { get; set; }
+        public bool Available { get; set; }
 
         [Required, MaxLength(300)]
         public string Description { get; set; }
@@ -32,5 +32,8 @@ namespace RoyalTravel.Data.Models
         public decimal Price { get; set; }
 
         public ICollection<Stay> Stays { get; set; }
+
+        [ForeignKey(nameof(Hotel))]
+        public int? HotelId { get; set; }
     }
 }

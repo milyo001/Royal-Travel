@@ -1,0 +1,13 @@
+﻿@model RoyalTravel.ViewModels.Booking.MakeBookingViewModel
+@{
+    ViewData["Title"] = "BookHotel";
+}
+
+    <div class="alert alert-warning text-center" role="alert">
+        You are checking the availability for our <a asp-action="SelectHotel" asp-route-id="@Model.HotelId" class="alert-link">@Model.HotelName</a> arriving on
+        @Model.CheckIn and leaving on @Model.CheckOut (total nights: @Model.NumberOfNights) for @Model.Adults Adult/s and @Model.Children Kid/s. 
+    </div>
+
+
+
+
