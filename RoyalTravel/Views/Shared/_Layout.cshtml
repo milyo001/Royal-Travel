@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] Royal Travel</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/SocialIcons.css" />
     <script src="https://kit.fontawesome.com/666da4d36c.js" crossorigin="anonymous"></script>  @*Font Awesome Icons CDN*@
 
 </head>
@@ -22,13 +23,20 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-primary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home" style="color:#0275d8;"></i><span class="ml-1">Home</span>
+                            </a>
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" asp-area="" asp-controller="Booking" asp-action="Index">Book</a>
+                            <a class="nav-link text-dark" asp-controller="Booking" asp-action="Index">
+                             <i class="fas fa-calendar-plus" style="color:#0275d8;"></i><span class="ml-1">Book</span>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-primary" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">
+                                <i class="fas fa-file-alt" style="color:#0275d8;"></i><span class="ml-1">Privacy</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -57,30 +65,12 @@
                     </div>
                     <!-- Grid column -->
                     <!-- Grid column -->
-                    <div class="col-md-6 col-lg-7 text-center text-md-right">
-
-                        <!-- Facebook -->
-                        <a class="fb-ic">
-
-                            <i class="fab fa-facebook-f white-text mr-4" href="https://www.facebook.com/"></i>
-                            </a>
-                        <!-- Twitter -->
-                        <a class="tw-ic">
-                            <i class="fab fa-twitter white-text mr-4"> </i>
-                        </a>
-                        <!-- Google +-->
-                        <a class="gplus-ic">
-                            <i class="fab fa-google-plus-g white-text mr-4"> </i>
-                        </a>
-                        <!--Linkedin -->
-                        <a class="li-ic">
-                            <i class="fab fa-linkedin-in white-text mr-4"> </i>
-                        </a>
-                        <!--Instagram-->
-                        <a class="ins-ic">
-                            <i class="fab fa-instagram white-text"> </i>
-                        </a>
-
+                    <div class="social-icons icon-circle list-unstyled list-inline text-center">
+                        <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.twitter.com/"><i class="fa fa-twitter"></i></a>
+                        <a href="https://myaccount.google.com/"><i class="fa fa-google-plus"></i></a>
+                        <a href="https://www.linkedin.com/"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
                     </div>
                     <!-- Grid column -->
 
@@ -197,7 +187,7 @@
 
         </div>
     </div>
-    @*</footer>*@ 
+    
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

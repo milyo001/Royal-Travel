@@ -7,6 +7,11 @@ namespace RoyalTravel.Data.Models
 {
     public class Room
     {
+
+        public Room()
+        {
+            this.Stays = new HashSet<Stay>();
+        }
         [Key]
         public int Id { get; set; }
 

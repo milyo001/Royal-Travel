@@ -12,74 +12,93 @@
         <span class="font-weight-bold">@Model.CheckIn</span> and leaving on <span class="font-weight-bold">@Model.CheckOut</span> (@Model.NumberOfNights nights) for <span class="font-weight-bold">@Model.Adults Adult/s</span>
         and <span class="font-weight-bold">@Model.Children Kid/s</span>.
     </div>
-    <div class="col-md-12">
-        @if (Model.Rooms.Count() > 0)
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Room Type</th>
-                        <th scope="col">Non-Smoking/Smoking</th>
-                        <th scope="col">Max Occupancy</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                @foreach (var room in Model.Rooms)
-                {
-
-                    <tbody>
+    @if (Model.TotalAvailableRooms > 0)
+    {
+        <div class="alert alert-info text-center" role="alert">
+            Total rooms available: @Model.TotalAvailableRooms
+        </div>
+        <div class="col-md-12">
+            @if (Model.RoomsGroup.Count() > 0)
+            {
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>@room.RoomType</td>
-                            @if (room.Smoking)
-                            {
-                                <td>Smoking</td>
-                            }
-                            else
-                            {
-                                <td>Non-Smoking</td>
-                            }
-                            <td>@room.MaxOccupancy</td>
-                            <td>
-                                <a id="modal-892189" href="#modal-container-892189" role="button" class="btn" data-toggle="modal">
-                                    <i class="fas fa-info-circle fa-2x" style="color:#6351ce"></i>
-                                </a>
-                                <div class="modal fade" id="modal-container-892189" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title text-center" id="myModalLabel">
-                                                    Room Details
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
+                            <th scope="col">Room Type</th>
+                            <th scope="col">Non-Smoking/Smoking</th>
+                            <th scope="col">Max Occupancy</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price/night</th>
+                            <th scope="col">Total price</th>
+                            <th scope="col">Rooms Available</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    @foreach (var room in Model.RoomsGroup)
+                    {
+
+                        <tbody>
+                            <tr>
+                                <td>@room.RoomType</td>
+                                @if (room.Smoking)
+                                {
+                                    <td>Smoking</td>
+                                }
+                                else
+                                {
+                                    <td>Non-Smoking</td>
+                                }
+                                <td>@room.MaxOccupancy</td>
+                                <td>
+                                    <a id="modal-892189" href="#modal-container-892189" role="button" class="btn" data-toggle="modal">
+                                        <i class="fas fa-info-circle fa-2x" style="color:#6351ce"></i>
+                                    </a>
+                                    <div class="modal fade" id="modal-container-892189" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-center" id="myModalLabel">
+                                                        Room Details
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @room.Description
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                @room.Description
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                            </div>
+
                                         </div>
 
                                     </div>
 
-                                </div>
+                                </td>
+                                <td>@room.Price</td>
+                                <td>@(room.Price * Model.NumberOfNights)</td>
+                                <td>@Model.RoomsAvailability.Where(r => r.RoomType == room.RoomType && r.Smoking == room.Smoking).Count()</td>
+                                <td></td>
+                                <td><input type="submit" class="btn btn-outline-warning"></td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
 
-                            </td>
-                            <td>@room.Price</td>
-                            <td><input type="submit" class="btn btn-outline-warning"></td>
-                        </tr>
-                    </tbody>
-                }
-            </table>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            It seems that @Model.HotelName is fully booked out for those dates!
+            <i class="fas fa-sad-tear"></i>
+        </div>
+    }
 
-        }
-    </div>
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/scripts.js"></script>

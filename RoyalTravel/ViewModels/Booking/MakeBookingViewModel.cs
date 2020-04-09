@@ -7,6 +7,11 @@ namespace RoyalTravel.ViewModels.Booking
 {
     public class MakeBookingViewModel
     {
+        public MakeBookingViewModel()
+        {
+            this.RoomsAvailability = new HashSet<Room>();
+            this.RoomsGroup = new HashSet<Room>();
+        }
         public int HotelId { get; set; }
 
         public string HotelName { get; set; }
@@ -21,7 +26,11 @@ namespace RoyalTravel.ViewModels.Booking
 
         public int NumberOfNights { get; set; }
 
-        public IEnumerable<Room> Rooms { get; set; }
+        public IEnumerable<Room> RoomsGroup { get; set; }
+
+        public IEnumerable<Room> RoomsAvailability { get; set; }
+
+        public int? TotalAvailableRooms { get; set; }
 
 
 

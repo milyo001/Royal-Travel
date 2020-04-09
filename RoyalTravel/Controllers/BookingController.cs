@@ -114,9 +114,17 @@ namespace RoyalTravel.Controllers
                 Adults = adults,
                 Children = children,
                 NumberOfNights = nightsStay,
-                Rooms = selectedHotel.Rooms
+                RoomsGroup = selectedHotel.Rooms
                     .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
-                    .Select(g => g.First())
+                    .Select(g => g.First()),
+                //Sorting and grouping the rooms to filter all rooms by room type, price and if they are smoking or non smoking
+
+                TotalAvailableRooms = selectedHotel.Rooms.Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate)).Count(),
+                //Gets the total rooms available for the selected hotel
+
+                RoomsAvailability = selectedHotel.Rooms
+                    .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
+                //Gets all the rooms which are available
             };
 
 

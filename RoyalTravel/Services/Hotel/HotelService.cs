@@ -27,7 +27,7 @@ namespace RoyalTravel.Services.Hotel
               .Include(h => h.Info)
               .Take(20)
               .ToList();
-            return result;
+            return await Task.FromResult(result);
         }
 
         public async Task<List<Data.Models.Hotel>> SearchWithHotelNameAsync(string hotelName)
@@ -40,11 +40,11 @@ namespace RoyalTravel.Services.Hotel
                .Include(h=> h.Rooms)
                .Take(20)
                .ToList();
-            return result;
+            return await Task.FromResult(result);
         }
         
 
-        public Task<List<Data.Models.Hotel>> FindHotelById(int? id)
+        public async Task<List<Data.Models.Hotel>> FindHotelById(int? id)
         {
             var hotel = db.Hotels
                 .Where(h => h.Id == id)
@@ -53,9 +53,10 @@ namespace RoyalTravel.Services.Hotel
                 .Include(h => h.Info)
                 .Include(h => h.Rooms)
                 .Include(h => h.Reviews)
+                .Include(h => h.Stays)
                 .ToList();
 
-            return Task.FromResult(hotel);
+            return await Task.FromResult(hotel);
         }
 
     }
