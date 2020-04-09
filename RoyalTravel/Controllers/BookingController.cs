@@ -113,7 +113,10 @@ namespace RoyalTravel.Controllers
                 CheckOut = checkOut,
                 Adults = adults,
                 Children = children,
-                NumberOfNights = nightsStay
+                NumberOfNights = nightsStay,
+                Rooms = selectedHotel.Rooms
+                    .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
+                    .Select(g => g.First())
             };
 
 
