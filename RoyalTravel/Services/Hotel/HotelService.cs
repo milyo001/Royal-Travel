@@ -59,5 +59,16 @@ namespace RoyalTravel.Services.Hotel
             return await Task.FromResult(hotel);
         }
 
+        public async Task<Data.Models.Hotel> FindSingleHotelById(int? id)
+        {
+            var hotel = db.Hotels
+                .Include(h => h.Stays)
+                .Include(h => h.Address)
+                .Include(h => h.Rooms)
+                .FirstOrDefault(h => h.Id == id);
+                
+            return await Task.FromResult(hotel);
+        }
+
     }
 }

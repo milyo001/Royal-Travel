@@ -1,7 +1,11 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RoyalTravel.Data;
+using RoyalTravel.Data.Models;
 using RoyalTravel.Services.Hotel;
+using RoyalTravel.Services.Room;
 using RoyalTravel.ViewModels.Booking;
 using System;
 using System.Collections.Generic;
@@ -15,11 +19,14 @@ namespace RoyalTravel.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly IHotelService hotelService;
-
-        public BookingController(ApplicationDbContext db, IHotelService hotelService)
+        private readonly IRoomService roomService;
+        private readonly UserManager<ApplicationUser> userManager;
+        public BookingController(ApplicationDbContext db, IHotelService hotelService, IRoomService roomService, UserManager<ApplicationUser> userManager)
         {
             this.db = db;
             this.hotelService = hotelService;
+            this.roomService = roomService;
+            this.userManager = userManager;
         }
 
 
@@ -39,7 +46,6 @@ namespace RoyalTravel.Controllers
             searchResultList = searchedHotelsByCity.Count == 0 ? searchedHotelsByName : searchedHotelsByCity;
             //Searching with city is with priority and searching with name is optional
 
-
             var hotelViewModel = new List<BookingOutputViewModel>();
 
             foreach (var hotel in searchResultList)
@@ -49,7 +55,6 @@ namespace RoyalTravel.Controllers
                 currentViewModelHotel.HotelName = hotel.Name;
                 currentViewModelHotel.Address = hotel.Address.Street
                  + ", " + hotel.Address.City + ", " + hotel.Address.State + ", " + hotel.Address.PostalCode;
-                currentViewModelHotel.AvailableRooms = hotel.Rooms.Where(r => r.Available && r.HotelId == hotel.Id).ToList();
                 currentViewModelHotel.PetFriendly = hotel.Amenity.AllowPets == true ? "Yes" : "No";
                 currentViewModelHotel.Wifi = hotel.Amenity.WiFi == true ? "Yes" : "No";
                 currentViewModelHotel.Pool = hotel.Amenity.Pool == true ? "Yes" : "No";
@@ -118,10 +123,6 @@ namespace RoyalTravel.Controllers
                     .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
                     .Select(g => g.First()),
                 //Sorting and grouping the rooms to filter all rooms by room type, price and if they are smoking or non smoking
-
-                TotalAvailableRooms = selectedHotel.Rooms.Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate)).Count(),
-                //Gets the total rooms available for the selected hotel
-
                 RoomsAvailability = selectedHotel.Rooms
                     .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
                 //Gets all the rooms which are available
@@ -131,5 +132,42 @@ namespace RoyalTravel.Controllers
             return this.View(bookHotelViewModel);
 
         }
+
+        [Authorize]
+        public async Task<IActionResult> Confirm(int? id, string checkIn, string checkOut, int adults, int children, string roomType)
+        {
+            var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            var selectedHotel = hotelService.FindSingleHotelById(id).Result;
+            var selectedAvailableRoom = selectedHotel.Rooms
+                .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
+                .FirstOrDefault(r => r.RoomType == roomType);
+
+            //Will get first available room by type since all rooms types added by admin are the same
+
+            if (checkOutDate <= checkInDate || adults < 1 || id == null)
+            {
+                throw new ArgumentOutOfRangeException("Error: Invalid input data(check in, check out or number of adults).");
+
+                //Additional validation for all required parameters if someone is trying to modify the parameters in the URL
+            }
+
+            var reservation = new Stay
+            {
+                RoomType = roomType,
+                ArrivalDate = checkInDate,
+                DepartureDate = checkOutDate,
+                Price = selectedAvailableRoom.Price,
+                HotelId = (int)id,
+                RoomId = selectedAvailableRoom.Id,
+                MoneySpend = selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days,
+                ApplicationUserId = userManager.GetUserId(User),
+            };
+
+            roomService.AddReservation(reservation);
+
+            return this.View();
+        }
+
     }
 }

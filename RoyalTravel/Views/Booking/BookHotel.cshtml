@@ -1,4 +1,10 @@
-﻿@model RoyalTravel.ViewModels.Booking.MakeBookingViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using RoyalTravel.Data.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@model RoyalTravel.ViewModels.Booking.MakeBookingViewModel
+
 @{
     ViewData["Title"] = "BookHotel";
 }
@@ -12,10 +18,10 @@
         <span class="font-weight-bold">@Model.CheckIn</span> and leaving on <span class="font-weight-bold">@Model.CheckOut</span> (@Model.NumberOfNights nights) for <span class="font-weight-bold">@Model.Adults Adult/s</span>
         and <span class="font-weight-bold">@Model.Children Kid/s</span>.
     </div>
-    @if (Model.TotalAvailableRooms > 0)
+    @if (Model.RoomsAvailability.Count() > 0)
     {
         <div class="alert alert-info text-center" role="alert">
-            Total rooms available: @Model.TotalAvailableRooms
+            Total rooms available: @Model.RoomsAvailability.Count()
         </div>
         <div class="col-md-12">
             @if (Model.RoomsGroup.Count() > 0)
@@ -81,13 +87,27 @@
                                 <td>@room.Price</td>
                                 <td>@(room.Price * Model.NumberOfNights)</td>
                                 <td>@Model.RoomsAvailability.Where(r => r.RoomType == room.RoomType && r.Smoking == room.Smoking).Count()</td>
-                                <td></td>
-                                <td><input type="submit" class="btn btn-outline-warning"></td>
+                                <td><br></td>
+                                <td>
+                                        <form method="get">
+                                            
+                                            <a class="btn btn-success" asp-controller="Booking" asp-action="Confirm"
+                                               asp-route-id="@Model.HotelId"
+                                               asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
+                                               asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
+                                               asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
+                                               asp-route-children="@ViewContext.HttpContext.Request.Query["children"]"
+                                               asp-route-roomType="@room.RoomType"
+                                               >Book now</a>
+                                        </form>
+                                    
+                                </td>
+
                             </tr>
                         </tbody>
                     }
                 </table>
-
+                
             }
         </div>
     }

@@ -17,7 +17,7 @@ namespace RoyalTravel.ViewModels
         public string DepartureDate { get; set; }
         public double Rate { get; set; }
 
-        public int PointsEarned { get => (int)this.Price * ConstData.PointsMultiplier; }
+        public int PointsEarned { get => (int)this.Price * StaticData.PointsMultiplier; }
         //For each currency(1 BGN, 1EUR, etc) the user will get 10 points(by default) 
 
         public int PointsSpend { get; set; }

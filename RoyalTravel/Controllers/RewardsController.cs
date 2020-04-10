@@ -18,16 +18,14 @@ namespace RoyalTravel.Controllers
 {
     public class RewardsController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
 
-        public RewardsController(ILogger<HomeController> logger, ApplicationDbContext applicationDbContext, 
+        public RewardsController(ILogger<HomeController> logger, ApplicationDbContext db, 
             UserManager<ApplicationUser> userManager, IUserService userService)
         {
-            this.context = applicationDbContext;
-            _logger = logger;
+            this.db = db;
             this.userManager = userManager;
             this.userService = userService;
            
@@ -35,43 +33,34 @@ namespace RoyalTravel.Controllers
 
         public IActionResult Index()
         {
-            var stayViewModel = new RewardsInputModel();
-            var currentUser = userService.GetUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var currentUser = userManager.GetUserAsync(User).Result;
+            var rewardsViewModel = new RewardsInputModel();
+            var stays = db.Stays
+                .Where(s => s.ApplicationUserId == currentUser.Id)
+                .OrderBy(s => s.ArrivalDate)
+                .ToList();
+            int totalPoints = (int)db.Stays.Sum(s => s.Price) * StaticData.PointsMultiplier;
+            //get total points of all stays to detirmine the loyalty level (silver, gold, diamond, etc)
 
-
-            var stayViewModelOne = new StayViewModel
+            if (totalPoints <= StaticData.RewardsTier1Requirement)
             {
-                Hotel = "Test1",
-                ArrivalDate = new DateTime(2020, 5, 22).ToString("dd/MM/yyyy"),
-                DepartureDate = new DateTime(2020, 5, 25).ToString("dd/MM/yyyy"),
-                RoomType = "2 Queen Beds",
-                Rate = 234.55,
-                Price = 679.33m,
-                PointsSpend = 0
-            };
-            var stayViewModelTwo = new StayViewModel
+                StaticData.PointsMultiplier = 1.00;
+            }
+            else if (totalPoints <= StaticData.RewardsTier2Requirement)
             {
-                Hotel = "Test",
-                ArrivalDate = new DateTime(2020, 5, 28).ToString("dd/MM/yyyy"),
-                DepartureDate = new DateTime(2020, 5, 29).ToString("dd/MM/yyyy"),
-                RoomType = "1 King Bed",
-                Rate = 144.55,
-                Price = 425.33m,
-                PointsSpend = 0,
-            };
 
-            stayViewModel.StayViewModel.Add(stayViewModelOne);
-            stayViewModel.StayViewModel.Add(stayViewModelTwo);
+            }
+            else if (totalPoints <= StaticData.RewardsTier3Requirement)
+            {
 
-            currentUser.Points += 500;
-            stayViewModel.UserDataViewModel.Points = currentUser.Points.ToString();
-            var totalPointsForAllStays = stayViewModel.StayViewModel.Sum(s => s.Price) * ConstData.PointsMultiplier;
-            //get total points of all stays to detirmine the loyalty level (blue, silver, gold, diamond, etc)
+            }
+            //rewardsViewModel.UserDataViewModel.Points = currentUser.Points.ToString();
+            //var totalPointsForAllStays = stayViewModel.StayViewModel.Sum(s => s.Price) * ConstData.PointsMultiplier;
 
 
             //for testing only before I seed the database
 
-            return View(stayViewModel);
+            return View(rewardsViewModel);
         }
 
         public IActionResult Privacy()

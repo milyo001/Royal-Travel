@@ -23,7 +23,10 @@ namespace RoyalTravel.Data.Models
 
         [Required]
         public DateTime DepartureDate { get; set; }
-        public double Rate { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
 
         public int? PointsEarned { get; set; }
 
@@ -36,5 +39,7 @@ namespace RoyalTravel.Data.Models
         public int RoomId { get; set; }
 
         public Room Room { get; set; }
+
+        public string ApplicationUserId { get; set; }
     }
 }

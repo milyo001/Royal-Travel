@@ -20,11 +20,7 @@ namespace RoyalTravel.Data.Models
 
         public bool Smoking { get; set; }
 
-        public bool Luxury { get; set; }
-
         public bool WithBreakfast { get; set; }
-
-        public bool Available { get; set; }
 
         [Required, MaxLength(300)]
         public string Description { get; set; }

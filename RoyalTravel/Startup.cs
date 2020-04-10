@@ -16,6 +16,7 @@ using RoyalTravel.Data.Models;
 using RoyalTravel.Services.User;
 using RoyalTravel.Services.Hotel;
 using Microsoft.AspNetCore.Mvc;
+using RoyalTravel.Services.Room;
 
 namespace RoyalTravel
 {
@@ -49,6 +50,7 @@ namespace RoyalTravel
             });
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IHotelService, HotelService>();
+            services.AddTransient<IRoomService, RoomService>();
 
 
         }
