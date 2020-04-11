@@ -65,6 +65,7 @@ namespace RoyalTravel.Services.Hotel
                 .Include(h => h.Stays)
                 .Include(h => h.Address)
                 .Include(h => h.Rooms)
+                .Include(h => h.Info)
                 .FirstOrDefault(h => h.Id == id);
                 
             return await Task.FromResult(hotel);

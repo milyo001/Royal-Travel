@@ -7,10 +7,10 @@ namespace RoyalTravel.ViewModels.Rewards
     {
         public RewardsInputModel()
         {
-            this.StayViewModel = new List<StayViewModel>();
+            this.StayViewModels = new List<StayViewModel>();
             this.UserDataViewModel = new UserDataViewModel();
         }
-       public List<StayViewModel> StayViewModel { get; set; }
+       public List<StayViewModel> StayViewModels { get; set; }
 
         public UserDataViewModel UserDataViewModel { get; set; }
     }

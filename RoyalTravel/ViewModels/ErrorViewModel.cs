@@ -1,6 +1,6 @@
 using System;
 
-namespace RoyalTravel.Models
+namespace RoyalTravel.ViewModels
 {
     public class ErrorViewModel
     {

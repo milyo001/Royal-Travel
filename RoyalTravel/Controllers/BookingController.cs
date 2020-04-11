@@ -6,9 +6,11 @@ using RoyalTravel.Data;
 using RoyalTravel.Data.Models;
 using RoyalTravel.Services.Hotel;
 using RoyalTravel.Services.Room;
+using RoyalTravel.ViewModels;
 using RoyalTravel.ViewModels.Booking;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -142,14 +144,13 @@ namespace RoyalTravel.Controllers
             var selectedAvailableRoom = selectedHotel.Rooms
                 .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
                 .FirstOrDefault(r => r.RoomType == roomType);
-
             //Will get first available room by type since all rooms types added by admin are the same
 
-            if (checkOutDate <= checkInDate || adults < 1 || id == null)
+            if (checkOutDate <= checkInDate || adults < 1 || id == null ||
+                selectedAvailableRoom.MaxOccupancy < adults + children)
             {
-                throw new ArgumentOutOfRangeException("Error: Invalid input data(check in, check out or number of adults).");
-
-                //Additional validation for all required parameters if someone is trying to modify the parameters in the URL
+                throw new ArgumentOutOfRangeException("Error: Invalid input data!");
+                //Additional validation for all required parameters
             }
 
             var reservation = new Stay
@@ -162,11 +163,32 @@ namespace RoyalTravel.Controllers
                 RoomId = selectedAvailableRoom.Id,
                 MoneySpend = selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days,
                 ApplicationUserId = userManager.GetUserId(User),
+                ConfirmationNumber = roomService.GenerateConfirmationNumber(selectedHotel.Name),
+                Adults = adults,
+                Children = children
             };
-
             roomService.AddReservation(reservation);
 
-            return this.View();
+            var confirmResViewModel = new ConfrimResViewModel
+            {
+                HotelName = reservation.Hotel.Name,
+                ConfirmationNumber = reservation.ConfirmationNumber,
+                CheckInTime = reservation.Hotel.Info.CheckIn,
+                CheckOutTime = reservation.Hotel.Info.CheckOut,
+                Nights = (checkOutDate - checkInDate).Days.ToString(),
+                Adults = reservation.Adults.ToString(),
+                Children = reservation.Children.ToString(),
+                CheckIn = reservation.ArrivalDate.ToString("MM/dd/yyyy"),
+                CheckOut = reservation.DepartureDate.ToString("MM/dd/yyyy")
+            };
+
+            return this.View(confirmResViewModel);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
     }

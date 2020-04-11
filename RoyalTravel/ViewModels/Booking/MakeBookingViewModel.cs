@@ -32,7 +32,5 @@ namespace RoyalTravel.ViewModels.Booking
 
         public int? TotalAvailableRooms { get; set; }
 
-
-
     }
 }

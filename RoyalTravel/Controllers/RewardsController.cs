@@ -6,10 +6,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RoyalTravel.Data;
 using RoyalTravel.Data.Models;
-using RoyalTravel.Models;
 using RoyalTravel.Services.User;
 using RoyalTravel.ViewModels;
 using RoyalTravel.ViewModels.Rewards;
@@ -37,28 +37,43 @@ namespace RoyalTravel.Controllers
             var rewardsViewModel = new RewardsInputModel();
             var stays = db.Stays
                 .Where(s => s.ApplicationUserId == currentUser.Id)
+                .Include(s => s.Hotel)
                 .OrderBy(s => s.ArrivalDate)
                 .ToList();
             int totalPoints = (int)db.Stays.Sum(s => s.Price) * StaticData.PointsMultiplier;
             //get total points of all stays to detirmine the loyalty level (silver, gold, diamond, etc)
+            var userTier = string.Empty;
 
-            if (totalPoints <= StaticData.RewardsTier1Requirement)
+            if (totalPoints >= StaticData.RewardsTier1Requirement)
             {
-                StaticData.PointsMultiplier = 1.00;
+                userTier = StaticData.Tiers.Silver.ToString();
             }
-            else if (totalPoints <= StaticData.RewardsTier2Requirement)
+            else if (totalPoints >= StaticData.RewardsTier2Requirement)
             {
-
+                userTier = StaticData.Tiers.Gold.ToString();
             }
-            else if (totalPoints <= StaticData.RewardsTier3Requirement)
+            else if (totalPoints >= StaticData.RewardsTier3Requirement)
             {
-
+                userTier = StaticData.Tiers.Platinum.ToString();
             }
-            //rewardsViewModel.UserDataViewModel.Points = currentUser.Points.ToString();
-            //var totalPointsForAllStays = stayViewModel.StayViewModel.Sum(s => s.Price) * ConstData.PointsMultiplier;
 
+            rewardsViewModel.UserDataViewModel.Points = currentUser.Points.ToString();
 
-            //for testing only before I seed the database
+            foreach (var stay in stays)
+            {
+                var stayViewModel = new StayViewModel()
+                {
+                    Hotel = stay.Hotel.Name,
+                    RoomType = stay.RoomType,
+                    ArrivalDate = stay.ArrivalDate.ToString("MM/dd/yyyy"),
+                    DepartureDate = stay.DepartureDate.ToString("MM/dd/yyyy"),
+                    PointsSpend = stay.PointsSpend.ToString(),
+                    PointsEarned = stay.PointsEarned.ToString(),
+                    Price = stay.Price.ToString(),
+                    TotalPrice = (stay.Price * (stay.DepartureDate - stay.ArrivalDate).Days).ToString()
+                };
+                rewardsViewModel.StayViewModels.Add(stayViewModel);
+            }
 
             return View(rewardsViewModel);
         }

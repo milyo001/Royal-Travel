@@ -21,7 +21,7 @@ using RoyalTravel;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\Views\_ViewImports.cshtml"
-using RoyalTravel.Models;
+using RoyalTravel.ViewModels;
 
 #line default
 #line hidden
@@ -41,7 +41,7 @@ using RoyalTravel.Data.Models;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d36", @"/Views/Shared/_LoginPartial.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f4130478f93ed1c567ddb2d17027db9d591ada54", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8f1b08c46c146d1d3dd2006174fb686429ab4d55", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared__LoginPartial : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("nav-link text-dark"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -109,7 +109,7 @@ using RoyalTravel.Data.Models;
 #line hidden
 #nullable disable
             WriteLiteral("!</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d368864", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d368868", async() => {
                 WriteLiteral("\r\n                <i class=\"fas fa-user\" style=\"color:#0275d8;\"></i><span class=\"ml-1\">Account</span>\r\n            ");
             }
             );
@@ -129,7 +129,7 @@ using RoyalTravel.Data.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3610566", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3610570", async() => {
                 WriteLiteral("\r\n                <i class=\"fas fa-trophy\" style=\"color:#FFD700\"></i><span class=\"ml-1\">Rewards</span>\r\n            ");
             }
             );
@@ -151,7 +151,7 @@ using RoyalTravel.Data.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3612478", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3612482", async() => {
                 WriteLiteral("\r\n                <button type=\"submit\" class=\"nav-link btn btn-link text-dark\">\r\n                    <i class=\"fas fa-sign-out-alt\" style=\"color:#d9534f;\"></i><span class=\"ml-1\">Logout</span>\r\n                </button>\r\n            ");
             }
             );
@@ -197,7 +197,7 @@ using RoyalTravel.Data.Models;
 #line hidden
 #nullable disable
             WriteLiteral("        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3615862", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3615866", async() => {
                 WriteLiteral("\r\n                <i class=\"fas fa-user-plus\" style=\"color:#0275d8;\"></i><span class=\"ml-1\">Register</span>\r\n            ");
             }
             );
@@ -216,7 +216,7 @@ using RoyalTravel.Data.Models;
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n        </li>\r\n        <li class=\"nav-item\">\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3617490", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ecb7636e54ae4b0c40dd5aa4f8e9871e4543d3617494", async() => {
                 WriteLiteral("\r\n                <i class=\"fas fa-sign-in-alt\" style=\"color:#0275d8;\"></i><span class=\"ml-1\">Login</span>\r\n            ");
             }
             );

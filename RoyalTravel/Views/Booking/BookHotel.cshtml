@@ -36,7 +36,7 @@
                             <th scope="col">Price/night</th>
                             <th scope="col">Total price</th>
                             <th scope="col">Rooms Available</th>
-                            <th scope="col"></th>
+                            <th scope="col">&nbsp;</th>
                         </tr>
                     </thead>
                     @foreach (var room in Model.RoomsGroup)
@@ -89,18 +89,25 @@
                                 <td>@Model.RoomsAvailability.Where(r => r.RoomType == room.RoomType && r.Smoking == room.Smoking).Count()</td>
                                 <td><br></td>
                                 <td>
+                                    @if (Model.RoomsAvailability.Where(r => r.RoomType == room.RoomType && r.Smoking == room.Smoking).Count() > 0)
+                                    {
                                         <form method="get">
-                                            
+
                                             <a class="btn btn-success" asp-controller="Booking" asp-action="Confirm"
                                                asp-route-id="@Model.HotelId"
                                                asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
                                                asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
                                                asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
                                                asp-route-children="@ViewContext.HttpContext.Request.Query["children"]"
-                                               asp-route-roomType="@room.RoomType"
-                                               >Book now</a>
+                                               asp-route-roomType="@room.RoomType">Book now</a>
                                         </form>
-                                    
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger">Not Available</a>
+                                    }
+
+
                                 </td>
 
                             </tr>

@@ -5,69 +5,86 @@
 @model RoyalTravel.ViewModels.Rewards.RewardsInputModel
 
 
+
 @{
     ViewData["Title"] = "Royal Rewards";
 }
 <head>
-    <link href="~/css/rewards.css" rel="stylesheet">
 </head>
 
-<div class="d-flex" id="wrapper">
-    
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 text-center">
+            Points: @userManager.GetUserAsync(User).Result.Points
+            <div class="progress">
 
-        <div class="list-group-item list-group-item-action bg-light">Points available: 
-        @Model.UserDataViewModel.Points</div>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-      
-  
-</div>
-    </div>
-    <!-- /#sidebar-wrapper -->
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th scope="col">Hotel Name</th>
-                    <th scope="col">Room type</th>
-                    <th scope="col">Rate</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Points Earned</th>
-                    <th scope="col">Points Spend</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.StayViewModel)
-                {
-                    <tr>
-                        <td>@item.Hotel</td>
-                        <td>@item.RoomType</td>
-                        <td>@item.Rate</td>
-                        <td>@item.Price</td>
-                        <td>@item.PointsEarned</td>
-                        <td>@item.PointsSpend</td>
-                    </tr>
-                }
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="progressBar"></div>
+                <label for="progressBar">Progress to level up:</label>
+            </div>
+            Current Tier: 
+        </div>
+        <div class="col-md-10">
+            <div class="main">
+                <div id="page-content-wrapper">
+                    <table class="table table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Hotel Name</th>
+                                <th scope="col">Room type</th>
+                                <th scope="col">Arrival</th>
+                                <th scope="col">Departure</th>
+                                <th scope="col">Points Earned</th>
+                                <th scope="col">Points Spend</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var stay in Model.StayViewModels)
+                            {
+                                <tr>
+                                    <td>@stay.Hotel</td>
+                                    <td>@stay.RoomType</td>
+                                    <td>@stay.ArrivalDate</td>
+                                    <td>@stay.DepartureDate</td>
+                                    <td>
+                                        @if (string.IsNullOrEmpty(stay.PointsEarned))
+                                        {
+                                            <p>0</p>
+                                        }
+                                        else
+                                        {
+                                            @stay.PointsEarned
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (string.IsNullOrEmpty(stay.PointsSpend))
+                                        {
+                                            <p>0</p>
+                                        }
+                                        else
+                                        {
+                                            @stay.PointsSpend
+                                        }
+                                    </td>
+                                    <td>@stay.Price$</td>
+                                    <td>@stay.TotalPrice$</td>
+                                </tr>
+                            }
 
-            </tbody>
-        </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- /#page-content-wrapper -->
-<!-- /#wrapper -->
-<!-- Bootstrap core JavaScript -->
+
+
 <script src="~/js/JsQuery/jquery.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
+
 
 
 

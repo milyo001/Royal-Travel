@@ -40,6 +40,14 @@ namespace RoyalTravel.Data.Models
 
         public Room Room { get; set; }
 
+        [Required]
         public string ApplicationUserId { get; set; }
+
+        [Required]
+        public string ConfirmationNumber { get; set; }
+
+        public int Adults { get; set; }
+
+        public int Children { get; set; }
     }
 }

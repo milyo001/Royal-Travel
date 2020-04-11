@@ -21,13 +21,13 @@ using RoyalTravel;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\Views\_ViewImports.cshtml"
-using RoyalTravel.Models;
+using RoyalTravel.ViewModels;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d6a5625cc8fb4476f348b0fe9041c550465d8bf9", @"/Views/Shared/Error.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f4130478f93ed1c567ddb2d17027db9d591ada54", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8f1b08c46c146d1d3dd2006174fb686429ab4d55", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Error : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ErrorViewModel>
     {
         #pragma warning disable 1998
