@@ -33,21 +33,27 @@ namespace RoyalTravel.Controllers
 
 
 
-        public IActionResult Index(List<BookingOutputViewModel> hotelViewModels = null)
+        public IActionResult Index(BookingViewModel viewModel)
         {
-            return View(hotelViewModels);
+            return View(viewModel);
         }
 
+        public async Task<IActionResult> SearchHotels([Bind]BookingInputViewModel inputModel)
 
-        public async Task<IActionResult> SearchHotels(string searchInput, string checkIn, string checkOut, int adults, int children)
+        /*(string searchInput, string checkIn, string checkOut, int adults, int children)*/
         {
-            var searchedHotelsByCity = await this.hotelService.SearchWithLocationAsync(searchInput);
-            var searchedHotelsByName = await this.hotelService.SearchWithHotelNameAsync(searchInput);
+            if (!ModelState.IsValid)
+            {
+                throw new ArgumentOutOfRangeException("User Input data is incorrect! Make sure that arrival date is greater than departure date! Make sure that number of adults is not empty!");
+            }
+            var searchedHotelsByCity = await this.hotelService.SearchWithLocationAsync(inputModel.Destination);
+            var searchedHotelsByName = await this.hotelService.SearchWithHotelNameAsync(inputModel.Destination);
 
-            var searchResultList = new List<Data.Models.Hotel>();
+            var searchResultList = new List<Hotel>();
             searchResultList = searchedHotelsByCity.Count == 0 ? searchedHotelsByName : searchedHotelsByCity;
             //Searching with city is with priority and searching with name is optional
 
+            var bookingViewModel = new BookingViewModel();
             var hotelViewModel = new List<BookingOutputViewModel>();
 
             foreach (var hotel in searchResultList)
@@ -63,14 +69,23 @@ namespace RoyalTravel.Controllers
                 currentViewModelHotel.Rating = hotel.Rating.ToString();
                 hotelViewModel.Add(currentViewModelHotel);
             }
+            bookingViewModel.BookingOutputViewModels = hotelViewModel;
+            //Contains information about the searched hotels;
+            bookingViewModel.InputModel = inputModel;
+            //Contains information about the input, including validation
+
             //TODO Implement Paging 
 
-            return this.View("Index", hotelViewModel);
+            return this.View("Index", bookingViewModel);
 
         }
 
         public async Task<IActionResult> SelectHotel(int? id)
         {
+            if (id == null)
+            {
+                throw new NullReferenceException("Hotel Id cannot be empty!");
+            }
             var hotelQuery = await hotelService.FindHotelById(id);
             var hotel = hotelQuery.FirstOrDefault();
 
@@ -104,10 +119,27 @@ namespace RoyalTravel.Controllers
 
         public async Task<IActionResult> BookHotel(int? id, string checkIn, string checkOut, int adults, int children)
         {
-            //TODO Validation
+            try
+            {
+                var checkInDateTemp = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                var checkOutDateTemp = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+
+                throw new ArgumentOutOfRangeException("Invalid dates!");
+            };
+            //Validate the dates parsing if the user modified the URL
+
             var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             int nightsStay = (checkOutDate - checkInDate).Days;
+
+            if (checkOutDate <= checkInDate || id == null || adults == 0)
+            {
+                throw new ArgumentOutOfRangeException("Invalid input data! Check out date should be after the check in! Minimum number of adults is one! Hotel indentifier is required!");
+                //Additional validation for all required parameters
+            }
 
             var hotelQuery = await hotelService.FindHotelById(id);
             var selectedHotel = hotelQuery.FirstOrDefault();
@@ -132,7 +164,6 @@ namespace RoyalTravel.Controllers
 
 
             return this.View(bookHotelViewModel);
-
         }
 
         [Authorize]

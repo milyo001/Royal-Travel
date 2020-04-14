@@ -1,26 +1,28 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RoyalTravel.ViewModels.Booking
 {
     
-    public class BookingInputViewModel
+    public class BookingInputViewModel 
     {
-        [Required, StringLength(30)]
+        [Required(ErrorMessage = "Please enter destination!"), StringLength(30)]
         public string Destination { get; set; }
 
-        [Required]
-        public string CheckIn { get; set; }
+        [Required(ErrorMessage = "The arrival date is required.")]
+        [DataType(DataType.Date)]
+        public DateTime CheckIn { get; set; }
 
-        [Required]
-        public string CheckOut { get; set; }
+        [Required(ErrorMessage = "The departure date is required.")]
+        public DateTime CheckOut { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required!")]
         public int Adults { get; set; }
 
-        public int Kids { get; set; }
+        public int Children { get; set; }
 
     }
 }

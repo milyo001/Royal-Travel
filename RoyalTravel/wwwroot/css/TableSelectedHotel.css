@@ -2,6 +2,14 @@
     text-align: center;
     background-color: #6351ce;
 }
+tr:empty {
+    text-align: center;
+    background-color: #6351ce;
+}
+th:empty {
+    text-align: center;
+    background-color: #6351ce;
+}
 
 td {
     text-align: center;

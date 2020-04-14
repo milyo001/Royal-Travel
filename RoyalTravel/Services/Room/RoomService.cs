@@ -40,17 +40,16 @@ namespace RoyalTravel.Services.Room
             }
             //Add the first letters of the hotel name
             sb.Append(DateTime.Today.Month.ToString("00"));
+
             //Add the month of booking to the conf. number
             sb.Append(DateTime.Today.Day.ToString("00"));
             //Add the year of booking to the conf. number
             sb.Append(DateTime.Today.Year.ToString());
             //Add the year of booking to the conf. number
 
-            for (int i = 1; i <= StaticData.ConfirmationNumberLenght; i++)
-            {
-                var random = new Random();
-                sb.Append(random.Next(0, 9).ToString());
-            }
+
+            var random = new Random();
+            sb.Append(random.Next(10000, 99999).ToString()); 
             //Add 5 more random numbers to the conf number
             confirmationNumber = sb.ToString().ToUpper();
 
