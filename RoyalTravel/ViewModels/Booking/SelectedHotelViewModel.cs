@@ -40,6 +40,8 @@ namespace RoyalTravel.ViewModels.Booking
 
         public string Policies { get; set; }
 
+        public string LocationLink { get; set; }
+
         public IEnumerable<Room> RoomTypes { get; set; }
 
     }

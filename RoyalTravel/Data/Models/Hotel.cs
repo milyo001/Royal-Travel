@@ -36,5 +36,8 @@ namespace RoyalTravel.Data.Models
 
         public byte[] Image { get; set; }
 
+        public string LocationLink { get; set; }
+        //Location Link for Openstreetmap.org api
+
     }
 }

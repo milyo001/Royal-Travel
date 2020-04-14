@@ -108,6 +108,7 @@ namespace RoyalTravel.Controllers
                 CheckInTime = hotel.Info.CheckIn,
                 CheckOutTime = hotel.Info.CheckOut,
                 MinCheckInAge = hotel.Info.CheckIn,
+                LocationLink = hotel.LocationLink,
                 Policies = hotel.Info.Policies,
                 RoomTypes = hotel.Rooms
                     .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
@@ -135,7 +136,7 @@ namespace RoyalTravel.Controllers
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             int nightsStay = (checkOutDate - checkInDate).Days;
 
-            if (checkOutDate <= checkInDate || id == null || adults == 0)
+            if (checkOutDate <= checkInDate || id == null || adults == 0 || checkInDate == checkOutDate)
             {
                 throw new ArgumentOutOfRangeException("Invalid input data! Check out date should be after the check in! Minimum number of adults is one! Hotel indentifier is required!");
                 //Additional validation for all required parameters
