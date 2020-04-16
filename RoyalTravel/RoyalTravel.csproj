@@ -19,6 +19,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Areas\Administration\Views\" />
     <Folder Include="Data\Models\" />
   </ItemGroup>
 

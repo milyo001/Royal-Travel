@@ -2,7 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-@{ 
+<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+
+<style>
+    .bg-cover {
+        background-size: cover !important;
+    }
+
+</style>
+
+
+<div style="background:url(../Images/homeBackground.jpg)" class="jumbotron bg-cover text-white">
+    <div class="container py-5 text-center">
+        <h1 class="display-4 font-weight-bold" style="font-family: 'Aclonica';">Find your perfect vacation package</h1>
+        <p class="font-italic mb-0">Royal Travel can offer you superior accommodation!</p>
+        <p class="font-italic">
+            Hurry up and check the availablity of
+            <a asp-controller="Booking" asp-action="Index" class="text-white">
+                <u>our hotels</u>
+            </a>
+        </p>
+        <a asp-controller="Booking" asp-action="Index" role="button" class="btn btn-primary px-5">Book Now!</a>
+    </div>
+</div>
+
+@{
     await Html.RenderPartialAsync("_InfoCardsPartial");
 }
 

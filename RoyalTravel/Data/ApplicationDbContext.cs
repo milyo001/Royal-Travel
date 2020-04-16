@@ -4,7 +4,7 @@ using RoyalTravel.Data.Models;
 
 namespace RoyalTravel.Data
 {
-    public class ApplicationDbContext : IdentityUserContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -18,7 +18,7 @@ namespace RoyalTravel.Data
 
             builder.Entity<ApplicationUser>(entity =>
             {
-                entity.ToTable(name: "User");
+                entity.ToTable(name: "Users");
             });
         }
         public DbSet<Address> Addresses { get; set; }

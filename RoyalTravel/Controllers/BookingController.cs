@@ -32,7 +32,7 @@ namespace RoyalTravel.Controllers
         }
 
 
-
+        [Authorize(Roles ="Administrator")]
         public IActionResult Index(BookingViewModel viewModel)
         {
             return View(viewModel);
@@ -44,7 +44,7 @@ namespace RoyalTravel.Controllers
         {
             if (!ModelState.IsValid)
             {
-                throw new ArgumentOutOfRangeException("User Input data is incorrect! Make sure that arrival date is greater than departure date! Make sure that number of adults is not empty!");
+                throw new ArgumentOutOfRangeException("User Input data is incorrect! Make sure that departure date is greater than arrival date! Make sure that number of adults is not empty!");
             }
             var searchedHotelsByCity = await this.hotelService.SearchWithLocationAsync(inputModel.Destination);
             var searchedHotelsByName = await this.hotelService.SearchWithHotelNameAsync(inputModel.Destination);

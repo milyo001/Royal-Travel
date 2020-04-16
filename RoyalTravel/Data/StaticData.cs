@@ -27,5 +27,7 @@ namespace RoyalTravel.Data
             Gold = 1,
             Platinum = 2
         }
+
+        
     }
 }

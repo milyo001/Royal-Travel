@@ -6,6 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+
 <div class="alert alert-success" role="alert">
     <h4 class="alert-heading text-center">The reservation for <span class="font-weight-bold">@Model.HotelName</span> has been confirmed!</h4>
     <h4 class="alert-heading text-center">Your confirmation number is: <span class="font-weight-bold">@Model.ConfirmationNumber</span></h4>
@@ -20,8 +21,8 @@
         <div class="card col-sm" style="width: 18rem;">
             <ul class="list-group list-group-flush text-center">
                 <li class="list-group-item">Hotel: @Model.HotelName</li>
-                <li class="list-group-item">Adults: @Model.CheckInTime</li>
-                <li class="list-group-item">Children: @Model.CheckOutTime</li>
+                <li class="list-group-item">Check In Time: @Model.CheckInTime h</li>
+                <li class="list-group-item">Check Out Time: @Model.CheckOutTime h</li>
             </ul>
         </div>
         <div class="card col-sm" style="width: 18rem;">

@@ -27,6 +27,7 @@ namespace RoyalTravel.Areas.Identity.Pages.Account
         private const string LENGHT_ERROR = "The {0} must be at least {2} and at max {1} characters long.";
 
         private readonly ApplicationDbContext _db;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -37,13 +38,15 @@ namespace RoyalTravel.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            ApplicationDbContext db)
+            ApplicationDbContext db,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _db = db;
+            this.roleManager = roleManager;
         }
 
         [BindProperty]
@@ -80,6 +83,7 @@ namespace RoyalTravel.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "Input passwords do not match.")]
             public string ConfirmPassword { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -103,9 +107,27 @@ namespace RoyalTravel.Areas.Identity.Pages.Account
                     Points = 0
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
-                    
+                    if (this._db.Users.Count() == 1)
+                    {
+                        //Add the user and check if there is only 1 user, Adds the user to role administrator
+                        var adminRole = await roleManager.CreateAsync(new IdentityRole
+                        {
+                            Name = "Administrator"
+                        });
+                        await _userManager.AddToRoleAsync(user, "Administrator");
+                    }
+                    else
+                    {
+                        var userRole = await roleManager.CreateAsync(new IdentityRole
+                        {
+                            Name = "User"
+                        });
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                    //By default the first User is Administrator
                     await _db.SaveChangesAsync();
                     _logger.LogInformation("User created a new account with password.");
 
