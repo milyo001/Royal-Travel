@@ -26,54 +26,64 @@
         <div class="col-md-10">
             <div class="main">
                 <div id="page-content-wrapper">
-                    <table class="table table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th scope="col">Hotel Name</th>
-                                <th scope="col">Room type</th>
-                                <th scope="col">Arrival</th>
-                                <th scope="col">Departure</th>
-                                <th scope="col">Points Earned</th>
-                                <th scope="col">Points Spend</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var stay in Model.StayViewModels)
-                            {
+                    @if (Model.StayViewModels.Count == 0)
+                    {
+                    <div class="alert alert-dark text-center" role="alert">
+                        You don't have any reservations yet! You can find some accommodations <a class="alert-link" asp-controller="Booking" asp-action="Index">here</a>.
+                    </div>
+                    }
+                    else
+                    {
+                        <table class="table table-striped text-center">
+                            <thead>
                                 <tr>
-                                    <td>@stay.Hotel</td>
-                                    <td>@stay.RoomType</td>
-                                    <td>@stay.ArrivalDate</td>
-                                    <td>@stay.DepartureDate</td>
-                                    <td>
-                                        @if (string.IsNullOrEmpty(stay.PointsEarned))
-                                        {
-                                            <p>0</p>
-                                        }
-                                        else
-                                        {
-                                            @stay.PointsEarned
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (string.IsNullOrEmpty(stay.PointsSpend))
-                                        {
-                                            <p>0</p>
-                                        }
-                                        else
-                                        {
-                                            @stay.PointsSpend
-                                        }
-                                    </td>
-                                    <td>@stay.Price$</td>
-                                    <td>@stay.TotalPrice$</td>
+                                    <th scope="col">Hotel Name</th>
+                                    <th scope="col">Room type</th>
+                                    <th scope="col">Arrival</th>
+                                    <th scope="col">Departure</th>
+                                    <th scope="col">Points Earned</th>
+                                    <th scope="col">Points Spend</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Total Price</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
+                                @foreach (var stay in Model.StayViewModels)
+                                {
+                                    <tr>
+                                        <td>@stay.Hotel</td>
+                                        <td>@stay.RoomType</td>
+                                        <td>@stay.ArrivalDate</td>
+                                        <td>@stay.DepartureDate</td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(stay.PointsEarned))
+                                            {
+                                                <p>0</p>
+                                            }
+                                            else
+                                            {
+                                                @stay.PointsEarned
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(stay.PointsSpend))
+                                            {
+                                                <p>0</p>
+                                            }
+                                            else
+                                            {
+                                                @stay.PointsSpend
+                                            }
+                                        </td>
+                                        <td>@stay.Price$</td>
+                                        <td>@stay.TotalPrice$</td>
+                                    </tr>
+                                }
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    }
+
                 </div>
             </div>
         </div>

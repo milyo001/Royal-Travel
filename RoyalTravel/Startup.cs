@@ -17,6 +17,7 @@ using RoyalTravel.Services.User;
 using RoyalTravel.Services.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using RoyalTravel.Services.Room;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace RoyalTravel
 {
@@ -35,17 +36,20 @@ namespace RoyalTravel
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-                
 
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                
+            }); 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdmin",
+                policy => policy.RequireRole("Administrator"));
             });
             services.AddRazorPages().AddMvcOptions(options =>
             {
@@ -81,15 +85,13 @@ namespace RoyalTravel
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller=Booking}/{action=Index}/{searchInput?}");
+                endpoints.MapAreaControllerRoute(name: "areas", "areas", pattern: "{area:exists}/{controller=Default}/{action=Index}/{id?}");
 
 
                 endpoints.MapRazorPages();

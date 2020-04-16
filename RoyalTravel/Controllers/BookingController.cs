@@ -30,9 +30,7 @@ namespace RoyalTravel.Controllers
             this.roomService = roomService;
             this.userManager = userManager;
         }
-
-
-        [Authorize(Roles ="Administrator")]
+        
         public IActionResult Index(BookingViewModel viewModel)
         {
             return View(viewModel);
