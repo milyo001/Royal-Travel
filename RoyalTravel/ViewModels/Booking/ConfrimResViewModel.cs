@@ -1,9 +1,13 @@
 ﻿
 
+using System;
+
 namespace RoyalTravel.ViewModels.Booking
 {
     public class ConfrimResViewModel
     {
+        public int StayId { get; set; }
+
         public string HotelName { get; set; }
 
         public string ConfirmationNumber { get; set; }
@@ -22,6 +26,8 @@ namespace RoyalTravel.ViewModels.Booking
 
         public string Nights { get; set; }
 
+        public DateTime BookedOn { get; set; }
 
+        public bool IsCanceled { get; set; }
     }
 }

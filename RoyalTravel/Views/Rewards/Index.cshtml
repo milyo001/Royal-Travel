@@ -4,8 +4,6 @@
 @inject UserManager<ApplicationUser> userManager
 @model RoyalTravel.ViewModels.Rewards.RewardsInputModel
 
-
-
 @{
     ViewData["Title"] = "Royal Rewards";
 }
@@ -15,28 +13,27 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2 text-center">
-            Points: @userManager.GetUserAsync(User).Result.Points
-            <div class="progress">
-
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="progressBar"></div>
-                <label for="progressBar">Progress to level up:</label>
-            </div>
-            Current Tier: 
+            Total Points Earned: @Model.UserDataViewModel.Points
         </div>
-        <div class="col-md-10">
+        <div class="col-md-2 text-center">
+            Current Tier: @Model.UserDataViewModel.RewardsTier
+        </div>
+        <div class="col-md-12">
             <div class="main">
                 <div id="page-content-wrapper">
                     @if (Model.StayViewModels.Count == 0)
                     {
-                    <div class="alert alert-dark text-center" role="alert">
-                        You don't have any reservations yet! You can find some accommodations <a class="alert-link" asp-controller="Booking" asp-action="Index">here</a>.
-                    </div>
+                        <div class="alert alert-dark text-center" role="alert">
+                            You don't have any reservations yet! You can find some accommodations <a class="alert-link" asp-controller="Booking" asp-action="Index">here</a>.
+                        </div>
                     }
                     else
                     {
                         <table class="table table-striped text-center">
+
                             <thead>
                                 <tr>
+                                    <th scope="col">Booked On</th>
                                     <th scope="col">Hotel Name</th>
                                     <th scope="col">Room type</th>
                                     <th scope="col">Arrival</th>
@@ -45,28 +42,22 @@
                                     <th scope="col">Points Spend</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Total Price</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach (var stay in Model.StayViewModels)
                                 {
                                     <tr>
+                                        <td>@stay.BookedOn</td>
                                         <td>@stay.Hotel</td>
                                         <td>@stay.RoomType</td>
-                                        <td>@stay.ArrivalDate</td>
-                                        <td>@stay.DepartureDate</td>
+                                        <td>@stay.ArrivalDate.ToString("MM/dd/yyyy")</td>
+                                        <td>@stay.DepartureDate.ToString("MM/dd/yyyy")</td>
+                                        <td>@stay.PointsEarned</td>
                                         <td>
-                                            @if (string.IsNullOrEmpty(stay.PointsEarned))
-                                            {
-                                                <p>0</p>
-                                            }
-                                            else
-                                            {
-                                                @stay.PointsEarned
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (string.IsNullOrEmpty(stay.PointsSpend))
+                                            @if (stay.PointsSpend == null)
                                             {
                                                 <p>0</p>
                                             }
@@ -77,6 +68,53 @@
                                         </td>
                                         <td>@stay.Price$</td>
                                         <td>@stay.TotalPrice$</td>
+                                        <td>
+                                            @if (stay.DepartureDate == DateTime.Today)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                if (stay.ArrivalDate <= DateTime.Today)
+                                                {
+                                                    <button type="button" class="btn btn-warning btn-sm">
+                                                        Past reservation
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    if (stay.IsCanceled)
+                                                    {
+                                                        <button type="button" class="btn btn-dark btn-sm">
+                                                            Canceled
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <form method="get">
+                                                            <a type="submit" class="btn btn-danger btn-sm" asp-controller="Rewards" asp-action="CancelReservation" asp-route-stayId="@stay.StayId">
+                                                                Cancel<span class="ml-1"><i class="fas fa-times"></i></span>
+                                                            </a>
+                                                        </form>
+                                                        
+                                                    }
+
+                                                }
+
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (userManager.GetUserAsync(User).Result.Points >= 15000 && stay.IsCanceled == false && stay.ArrivalDate > DateTime.Today)
+                                            {
+                                                <form method="get">
+                                                    <a type="submit" class="btn btn-success btn-sm" asp-controller="Rewards" asp-action="UsePoints" asp-route-stayId="@stay.StayId">
+                                                        Redeem Free Night
+                                                    </a>
+                                                    
+                                                </form>
+                                            }
+
+                                        </td>
                                     </tr>
                                 }
 
@@ -90,6 +128,48 @@
     </div>
 </div>
 
+
+@*<form method="get" asp-controller="Booking" asp-action="SearchHotels">
+        <div class="row">
+            <div class="col">
+                <label for="destination">Where to?</label>
+                <input asp-for="InputModel.Destination" class="form-control" type="text" id="destination" width="276" name="destination" placeholder="Enter Destination" required />
+            </div>
+            <div class="col">
+                <label for="dp1">Arrival</label>
+                <input id="dp1" type="text" class="form-control clickable input-md" id="DtChkIn" placeholder="&#xf133;  Check-In" width="276" name="checkIn" required autocomplete="off">
+            </div>
+            <div class="col">
+                <label for="dp2">Departure</label>
+                <input id="dp2" type="text" class="form-control clickable input-md" id="DtChkOut" placeholder="&#xf133;  Check-Out" width="276" name="checkOut" required autocomplete="off">
+            </div>
+            <div class="col">
+                <label for="adults">Adults</label>
+                <select asp-for="InputModel.Adults" class="form-control" id="adults" width="276" name="adults" required>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="kids">Children</label>
+                <select class="form-control" id="kids" width="276" name="children">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <div style="margin-top:24px" class="row">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Booking" asp-action="SearchHotels">Find Hotels</button>
+        </div>
+    </form>*@
 
 <script src="~/js/JsQuery/jquery.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

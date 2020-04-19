@@ -8,6 +8,7 @@ using RoyalTravel.Services.Hotel;
 using RoyalTravel.Services.Room;
 using RoyalTravel.ViewModels;
 using RoyalTravel.ViewModels.Booking;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,15 +31,29 @@ namespace RoyalTravel.Controllers
             this.roomService = roomService;
             this.userManager = userManager;
         }
-        
+
         public IActionResult Index(BookingViewModel viewModel)
         {
+            StripeConfiguration.ApiKey = "sk_test_hlvhPKqDln99ueJt3x0yJA7A00TWYZyBBZ";
+
+            var options = new PaymentIntentCreateOptions
+            {
+                Amount = 1099,
+                Currency = "usd",
+                // Verify your integration in this guide by including this parameter
+                Metadata = new Dictionary<string, string>
+                {
+                  { "integration_check", "accept_a_payment" },
+                },
+            };
+
+            var service = new PaymentIntentService();
+            var paymentIntent = service.Create(options);
+
             return View(viewModel);
         }
 
         public async Task<IActionResult> SearchHotels([Bind]BookingInputViewModel inputModel)
-
-        /*(string searchInput, string checkIn, string checkOut, int adults, int children)*/
         {
             if (!ModelState.IsValid)
             {
@@ -134,7 +149,7 @@ namespace RoyalTravel.Controllers
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             int nightsStay = (checkOutDate - checkInDate).Days;
 
-            if (checkOutDate <= checkInDate || id == null || adults == 0 || checkInDate == checkOutDate)
+            if (checkOutDate <= checkInDate || id == null || adults == 0 || checkInDate == checkOutDate || checkInDate == null || checkOutDate == null)
             {
                 throw new ArgumentOutOfRangeException("Invalid input data! Check out date should be after the check in! Minimum number of adults is one! Hotel indentifier is required!");
                 //Additional validation for all required parameters
@@ -171,7 +186,7 @@ namespace RoyalTravel.Controllers
             var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             var selectedHotel = hotelService.FindSingleHotelById(id).Result;
-            var selectedAvailableRoom = selectedHotel.Rooms
+            var selectedAvailableRoom =  selectedHotel.Rooms
                 .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
                 .FirstOrDefault(r => r.RoomType == roomType);
             //Will get first available room by type since all rooms types added by admin are the same
@@ -195,12 +210,19 @@ namespace RoyalTravel.Controllers
                 ApplicationUserId = userManager.GetUserId(User),
                 ConfirmationNumber = roomService.GenerateConfirmationNumber(selectedHotel.Name),
                 Adults = adults,
-                Children = children
+                Children = children,
+                BookedOn = DateTime.Now,
+                IsCanceled = false,
+                PointsEarned = (int)selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days * StaticData.PointsMultiplier
             };
-            roomService.AddReservation(reservation);
+            var user = await userManager.GetUserAsync(User);
+            user.Points += reservation.PointsEarned;
+            //Add the points to the user account, so he/she can use it later on
 
-            var confirmResViewModel = new ConfrimResViewModel
+            roomService.AddReservation(reservation);
+            var confirmResViewModel =  new ConfrimResViewModel
             {
+                StayId = reservation.Id,
                 HotelName = reservation.Hotel.Name,
                 ConfirmationNumber = reservation.ConfirmationNumber,
                 CheckInTime = reservation.Hotel.Info.CheckIn,
@@ -209,7 +231,9 @@ namespace RoyalTravel.Controllers
                 Adults = reservation.Adults.ToString(),
                 Children = reservation.Children.ToString(),
                 CheckIn = reservation.ArrivalDate.ToString("MM/dd/yyyy"),
-                CheckOut = reservation.DepartureDate.ToString("MM/dd/yyyy")
+                CheckOut = reservation.DepartureDate.ToString("MM/dd/yyyy"),
+                BookedOn = reservation.BookedOn,
+                IsCanceled = false
             };
 
             return this.View(confirmResViewModel);

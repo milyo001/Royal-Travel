@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RoyalTravel.ViewModels;
+using Stripe;
 
 namespace RoyalTravel.Controllers
 {
@@ -24,6 +25,11 @@ namespace RoyalTravel.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Charge()
         {
             return View();
         }

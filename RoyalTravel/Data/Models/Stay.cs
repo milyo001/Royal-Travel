@@ -49,5 +49,9 @@ namespace RoyalTravel.Data.Models
         public int Adults { get; set; }
 
         public int Children { get; set; }
+
+        public DateTime BookedOn { get; set; }
+
+        public bool IsCanceled { get; set; }
     }
 }

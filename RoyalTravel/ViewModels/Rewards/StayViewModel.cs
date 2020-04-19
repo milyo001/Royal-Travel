@@ -1,25 +1,34 @@
 ﻿
 
+using System;
+
 namespace RoyalTravel.ViewModels
 {
     public class StayViewModel
     {
+        public string ConfirmationNumber { get; set; }
+        public int StayId { get; set; }
+
         public string RoomType { get; set; }
 
         public string Price { get; set; }
 
         public string TotalPrice { get; set; }
 
-        public string ArrivalDate { get; set; }
+        public DateTime ArrivalDate { get; set; }
 
-        public string DepartureDate { get; set; }
+        public DateTime DepartureDate { get; set; }
 
-        public string PointsEarned { get; set; }
+        public int? PointsEarned { get; set; }
 
-        public string PointsSpend { get; set; }
+        public int? PointsSpend { get; set; }
 
         public string Hotel { get; set; }
 
         public string Room { get; set; }
+
+        public DateTime BookedOn { get; set; }
+
+        public bool IsCanceled { get; set; }
     }
 }

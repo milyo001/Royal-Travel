@@ -18,6 +18,8 @@ using RoyalTravel.Services.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using RoyalTravel.Services.Room;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Stripe;
+using RoyalTravel.Services.Stays;
 
 namespace RoyalTravel
 {
@@ -33,6 +35,7 @@ namespace RoyalTravel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -57,10 +60,11 @@ namespace RoyalTravel
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
                     _ => "The field is required.");
             });
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IHotelService, HotelService>();
             services.AddTransient<IRoomService, RoomService>();
-
+            services.AddTransient<IStaysService, StaysService>();
 
         }
 

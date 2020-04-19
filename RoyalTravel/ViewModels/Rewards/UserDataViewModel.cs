@@ -6,6 +6,8 @@ namespace RoyalTravel.ViewModels.Rewards
     {
         public string Points { get; set; }
 
-       
+        public string RewardsTier { get; set; }
+
+
     }
 }
