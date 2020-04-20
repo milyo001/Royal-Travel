@@ -97,7 +97,7 @@ namespace RoyalTravel.Controllers
         {
             if (id == null)
             {
-                throw new NullReferenceException("Hotel Id cannot be empty!");
+                return NotFound("Hotel not found!");
             }
             var hotelQuery = await hotelService.FindHotelById(id);
             var hotel = hotelQuery.FirstOrDefault();
@@ -151,7 +151,7 @@ namespace RoyalTravel.Controllers
 
             if (checkOutDate <= checkInDate || id == null || adults == 0 || checkInDate == checkOutDate || checkInDate == null || checkOutDate == null)
             {
-                throw new ArgumentOutOfRangeException("Invalid input data! Check out date should be after the check in! Minimum number of adults is one! Hotel indentifier is required!");
+                throw new ArgumentOutOfRangeException("Invalid input data! Check out date should be after the check in date! Minimum number of adults is one! Hotel indentifier is required!");
                 //Additional validation for all required parameters
             }
 
@@ -204,6 +204,7 @@ namespace RoyalTravel.Controllers
                 ArrivalDate = checkInDate,
                 DepartureDate = checkOutDate,
                 Price = selectedAvailableRoom.Price,
+                TotalPrice = selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days,
                 HotelId = (int)id,
                 RoomId = selectedAvailableRoom.Id,
                 MoneySpend = selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days,
@@ -213,10 +214,11 @@ namespace RoyalTravel.Controllers
                 Children = children,
                 BookedOn = DateTime.Now,
                 IsCanceled = false,
+                PointsSpend = 0,
                 PointsEarned = (int)selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days * StaticData.PointsMultiplier
             };
-            var user = await userManager.GetUserAsync(User);
-            user.Points += reservation.PointsEarned;
+            //var user = await userManager.GetUserAsync(User);
+            //user.Points += reservation.PointsEarned;
             //Add the points to the user account, so he/she can use it later on
 
             roomService.AddReservation(reservation);

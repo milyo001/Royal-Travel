@@ -29,5 +29,17 @@ namespace RoyalTravel.Services.Stays
             var stay = db.Stays.First(s => s.Id == stayId);
             return stay;
         }
+
+        public void UsePoints(int stayId)
+        {
+            var selectedStay = FindStayById(stayId);
+            selectedStay.PointsSpend += StaticData.FreeNightPoints;
+            
+            selectedStay.TotalPrice -= selectedStay.Price;
+                //Remove one night charge from the total price
+            
+            //Check if the total price is greater than or equal to the price per night
+            db.SaveChanges();
+        }
     }
 }

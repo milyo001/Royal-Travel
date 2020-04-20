@@ -29,5 +29,6 @@ namespace RoyalTravel.ViewModels.Booking
         public DateTime BookedOn { get; set; }
 
         public bool IsCanceled { get; set; }
+
     }
 }

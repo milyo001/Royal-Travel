@@ -8,5 +8,7 @@ namespace RoyalTravel.Services.Stays
         void CancelReservation(int stayId);
 
         public Stay FindStayById(int stayId);
+
+        public void UsePoints(int stayId);
     }
 }

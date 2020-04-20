@@ -46,14 +46,13 @@ namespace RoyalTravel.Controllers
                 .ToList();
 
             int totalPoints = (int)db.Stays
-                .Where(s => s.ApplicationUserId == currentUser.Id)
-                .Where(s => s.IsCanceled == false)
-                .Sum(s => s.MoneySpend * StaticData.PointsMultiplier);
-
-            //get total points of all stays to detirmine the loyalty level (silver, gold, diamond, etc)
+                .Where(s => s.ApplicationUserId == currentUser.Id 
+                && s.DepartureDate < DateTime.Today && s.IsCanceled == false)
+                .Sum(s => s.TotalPrice * StaticData.PointsMultiplier);
+            //Get total points of all stays, which are not canceled. User will get points only if departure date is 
+            //less or equal to today's date
 
             var userTier = string.Empty;
-            var pointsMultiplier = StaticData.PointsMultiplier;
 
             if (totalPoints <= StaticData.RewardsTier1Requirement)
             {
@@ -70,7 +69,10 @@ namespace RoyalTravel.Controllers
             }
             //Get the user tier acording to total points earned
 
-            rewardsViewModel.UserDataViewModel.Points = totalPoints.ToString();
+            totalPoints -= currentUser.UsedPoints;
+            //Gets the remaining points for the user
+
+            rewardsViewModel.UserDataViewModel.TotalPoints = totalPoints;
             rewardsViewModel.UserDataViewModel.RewardsTier = userTier;
 
             foreach (var stay in stays)
@@ -84,8 +86,8 @@ namespace RoyalTravel.Controllers
                     DepartureDate = stay.DepartureDate,
                     PointsSpend = stay.PointsSpend,
                     PointsEarned = stay.PointsEarned,
-                    Price = stay.Price.ToString(),
-                    TotalPrice = (stay.Price * (stay.DepartureDate - stay.ArrivalDate).Days).ToString(),
+                    Price = stay.Price,
+                    TotalPrice = stay.TotalPrice,
                     StayId = stay.Id,
                     IsCanceled = stay.IsCanceled,
                     BookedOn = stay.BookedOn
@@ -104,14 +106,30 @@ namespace RoyalTravel.Controllers
                 return this.NotFound("Reservation not found!");
             }
             staysService.CancelReservation(stayId);
+
             //Will mark the reservation as canceled
 
-            var user = await userManager.GetUserAsync(User);
-            user.Points -= staysService.FindStayById(stayId).PointsEarned;
-            //Finds the selected stay in the database and returns the earned points for the stay
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> UsePoints(int stayId)
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+            var selectedStay = staysService.FindStayById(stayId);
+            if (stayId == 0)
+            {
+                return NotFound("Reservation not found!");
+            }
+            if (selectedStay.TotalPrice < selectedStay.Price)
+            {
+                throw new InvalidOperationException("Invalid points usage!");
+            }
+            currentUser.UsedPoints += StaticData.FreeNightPoints;
+            //Add the default points per night value to the user
+            staysService.UsePoints(stayId);
+            
+            return RedirectToAction("Index");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

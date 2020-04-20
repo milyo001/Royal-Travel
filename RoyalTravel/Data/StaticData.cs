@@ -28,6 +28,8 @@ namespace RoyalTravel.Data
             Platinum = 2
         }
 
-        
+        public static int FreeNightPoints = 15000;
+
+
     }
 }

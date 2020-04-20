@@ -23,7 +23,7 @@ namespace RoyalTravel.Data.Models
 
         public PhoneType PhoneType { get; set; }
 
-        public int? Points { get; set; }
+        public int UsedPoints { get; set; }
 
         [ForeignKey(nameof(Stay))]
         public int? StayId { get; set; }

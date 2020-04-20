@@ -104,7 +104,7 @@ namespace RoyalTravel.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    Points = 0
+                    UsedPoints = 0
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

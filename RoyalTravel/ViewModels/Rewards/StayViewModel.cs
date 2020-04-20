@@ -11,9 +11,9 @@ namespace RoyalTravel.ViewModels
 
         public string RoomType { get; set; }
 
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
-        public string TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         public DateTime ArrivalDate { get; set; }
 
