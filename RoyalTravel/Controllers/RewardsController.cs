@@ -26,7 +26,7 @@ namespace RoyalTravel.Controllers
         private readonly IUserService userService;
         private readonly IStaysService staysService;
 
-        public RewardsController(ILogger<HomeController> logger, ApplicationDbContext db, 
+        public RewardsController(ILogger<HomeController> logger, ApplicationDbContext db,
             UserManager<ApplicationUser> userManager, IUserService userService, IStaysService staysService)
         {
             this.db = db;
@@ -46,11 +46,16 @@ namespace RoyalTravel.Controllers
                 .ToList();
 
             int totalPoints = (int)db.Stays
-                .Where(s => s.ApplicationUserId == currentUser.Id 
+                .Where(s => s.ApplicationUserId == currentUser.Id
                 && s.DepartureDate < DateTime.Today && s.IsCanceled == false)
                 .Sum(s => s.TotalPrice * StaticData.PointsMultiplier);
             //Get total points of all stays, which are not canceled. User will get points only if departure date is 
             //less or equal to today's date
+
+            int pointsRefunded = (int)db.Stays
+                .Where(s => s.IsCanceled && s.PointsSpend > 0)
+                .Sum(s => s.PointsSpend);
+            //Get total points for canceled reservation and refund it to the user so he can use them again
 
             var userTier = string.Empty;
 
@@ -69,7 +74,7 @@ namespace RoyalTravel.Controllers
             }
             //Get the user tier acording to total points earned
 
-            totalPoints -= currentUser.UsedPoints;
+            totalPoints = totalPoints - currentUser.UsedPoints + pointsRefunded;
             //Gets the remaining points for the user
 
             rewardsViewModel.UserDataViewModel.TotalPoints = totalPoints;
@@ -91,7 +96,7 @@ namespace RoyalTravel.Controllers
                     StayId = stay.Id,
                     IsCanceled = stay.IsCanceled,
                     BookedOn = stay.BookedOn
-                    
+
                 };
                 rewardsViewModel.StayViewModels.Add(stayViewModel);
             }
@@ -105,6 +110,7 @@ namespace RoyalTravel.Controllers
             {
                 return this.NotFound("Reservation not found!");
             }
+
             staysService.CancelReservation(stayId);
 
             //Will mark the reservation as canceled
@@ -127,7 +133,7 @@ namespace RoyalTravel.Controllers
             currentUser.UsedPoints += StaticData.FreeNightPoints;
             //Add the default points per night value to the user
             staysService.UsePoints(stayId);
-            
+
             return RedirectToAction("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
