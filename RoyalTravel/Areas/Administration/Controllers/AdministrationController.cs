@@ -11,15 +11,16 @@ namespace RoyalTravel.Areas.Administration.Controllers
     [Authorize(Policy = "RequireAdmin")]
     public class AdministrationController : Controller
     {
+        private readonly ApplicationDbContext dbContext;
 
-        
         public AdministrationController(ApplicationDbContext dbContext)
         {
-           
+            this.dbContext = dbContext;
         }
         public IActionResult Index()
         {
             return View();
         }
+    
     }
 }

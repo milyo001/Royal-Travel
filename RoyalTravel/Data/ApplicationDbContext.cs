@@ -9,17 +9,7 @@ namespace RoyalTravel.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.Entity<ApplicationUser>(entity =>
-            {
-                entity.ToTable(name: "Users");
-            });
+            this.Database.EnsureCreated();
         }
         public DbSet<Address> Addresses { get; set; }
 
@@ -36,6 +26,24 @@ namespace RoyalTravel.Data
         public DbSet<Room> Rooms { get; set; }
 
         public DbSet<Stay> Stays { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.ToTable(name: "Users");
+            });
+            builder.Entity<Amenity>().HasData(
+                new Amenity { Id = 2, WiFi = true, AllowPets = true, Parking = true, AirportShuttle = true, 
+                    LocalShuttle = false, Breakfast = true, Pool = false, Fitness = true, Restaurant = true },
+
+                new Amenity { Id = 3, WiFi = true, AllowPets = true, Parking = true, AirportShuttle = false,
+                    LocalShuttle = true, Breakfast = true, Pool = false, Fitness = true, Restaurant = true }
+                ) ;
+        }
+
 
     }
 }

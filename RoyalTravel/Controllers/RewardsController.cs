@@ -44,18 +44,19 @@ namespace RoyalTravel.Controllers
                 .Include(s => s.Hotel)
                 .OrderByDescending(s => s.BookedOn)
                 .ToList();
+            //Gets all stays for the user including the data for the hotel and sorted by date of booking
 
             int totalPoints = (int)db.Stays
                 .Where(s => s.ApplicationUserId == currentUser.Id
                 && s.DepartureDate < DateTime.Today && s.IsCanceled == false)
                 .Sum(s => s.TotalPrice * StaticData.PointsMultiplier);
-            //Get total points of all stays, which are not canceled. User will get points only if departure date is 
+            //Gets total points of all stays, which are not canceled. User will get points only if departure date is 
             //less or equal to today's date
 
             int pointsRefunded = (int)db.Stays
                 .Where(s => s.IsCanceled && s.PointsSpend > 0)
                 .Sum(s => s.PointsSpend);
-            //Get total points for canceled reservation and refund it to the user so he can use them again
+            //Gets total points for canceled reservation and refund it to the user so he can use them again
 
             var userTier = string.Empty;
 
@@ -110,11 +111,8 @@ namespace RoyalTravel.Controllers
             {
                 return this.NotFound("Reservation not found!");
             }
-
             staysService.CancelReservation(stayId);
-
             //Will mark the reservation as canceled
-
             return RedirectToAction("Index");
         }
 
