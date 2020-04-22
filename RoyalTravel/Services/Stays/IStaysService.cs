@@ -1,5 +1,6 @@
 ﻿
 using RoyalTravel.Data.Models;
+using System.Collections.Generic;
 
 namespace RoyalTravel.Services.Stays
 {
@@ -9,6 +10,13 @@ namespace RoyalTravel.Services.Stays
 
         public Stay FindStayById(int stayId);
 
-        public void UsePoints(int stayId);
+        void UsePoints(int stayId);
+
+        List<Stay> GetAllStaysForUser(string userId);
+
+        int GetTotalPoints(string userId);
+
+        int GetRefundedPoints(string userId);
+
     }
 }

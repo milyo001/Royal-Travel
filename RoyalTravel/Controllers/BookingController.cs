@@ -34,22 +34,6 @@ namespace RoyalTravel.Controllers
 
         public IActionResult Index(BookingViewModel viewModel)
         {
-            StripeConfiguration.ApiKey = "sk_test_hlvhPKqDln99ueJt3x0yJA7A00TWYZyBBZ";
-
-            var options = new PaymentIntentCreateOptions
-            {
-                Amount = 1099,
-                Currency = "usd",
-                // Verify your integration in this guide by including this parameter
-                Metadata = new Dictionary<string, string>
-                {
-                  { "integration_check", "accept_a_payment" },
-                },
-            };
-
-            var service = new PaymentIntentService();
-            var paymentIntent = service.Create(options);
-
             return View(viewModel);
         }
 

@@ -23,15 +23,13 @@ namespace RoyalTravel.Controllers
     {
         private readonly ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUserService userService;
         private readonly IStaysService staysService;
 
-        public RewardsController(ILogger<HomeController> logger, ApplicationDbContext db,
+        public RewardsController(ApplicationDbContext db,
             UserManager<ApplicationUser> userManager, IUserService userService, IStaysService staysService)
         {
             this.db = db;
             this.userManager = userManager;
-            this.userService = userService;
             this.staysService = staysService;
         }
 
@@ -39,23 +37,14 @@ namespace RoyalTravel.Controllers
         {
             var currentUser = userManager.GetUserAsync(User).Result;
             var rewardsViewModel = new RewardsInputModel();
-            var stays = db.Stays
-                .Where(s => s.ApplicationUserId == currentUser.Id)
-                .Include(s => s.Hotel)
-                .OrderByDescending(s => s.BookedOn)
-                .ToList();
+            var stays = staysService.GetAllStaysForUser(currentUser.Id);
             //Gets all stays for the user including the data for the hotel and sorted by date of booking
 
-            int totalPoints = (int)db.Stays
-                .Where(s => s.ApplicationUserId == currentUser.Id
-                && s.DepartureDate < DateTime.Today && s.IsCanceled == false)
-                .Sum(s => s.TotalPrice * StaticData.PointsMultiplier);
+            int totalPoints = staysService.GetTotalPoints(currentUser.Id);
             //Gets total points of all stays, which are not canceled. User will get points only if departure date is 
             //less or equal to today's date
 
-            int pointsRefunded = (int)db.Stays
-                .Where(s => s.IsCanceled && s.PointsSpend > 0)
-                .Sum(s => s.PointsSpend);
+            int pointsRefunded = staysService.GetRefundedPoints(currentUser.Id);
             //Gets total points for canceled reservation and refund it to the user so he can use them again
 
             var userTier = string.Empty;

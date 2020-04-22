@@ -1,7 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RoyalTravel.Data;
 using RoyalTravel.Data.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,6 +31,34 @@ namespace RoyalTravel.Services.Stays
         {
             var stay = db.Stays.First(s => s.Id == stayId);
             return stay;
+        }
+
+        public List<Stay> GetAllStaysForUser(string userId)
+        {
+            var result = db.Stays
+                 .Where(s => s.ApplicationUserId == userId)
+                 .Include(s => s.Hotel)
+                 .OrderByDescending(s => s.BookedOn)
+                 .ToList();
+
+            return result;
+        }
+
+        public int GetRefundedPoints(string userId)
+        {
+            var result = (int)db.Stays
+                .Where(s => s.IsCanceled && s.PointsSpend > 0)
+                .Sum(s => s.PointsSpend);
+            return result;
+        }
+
+        public int GetTotalPoints(string userId)
+        {
+            var result = (int)db.Stays
+                .Where(s => s.ApplicationUserId == userId
+                && s.DepartureDate < DateTime.Today && s.IsCanceled == false)
+                .Sum(s => s.TotalPrice * StaticData.PointsMultiplier);
+            return result;
         }
 
         public void UsePoints(int stayId)
