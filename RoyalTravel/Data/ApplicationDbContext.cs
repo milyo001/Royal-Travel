@@ -35,13 +35,9 @@ namespace RoyalTravel.Data
             {
                 entity.ToTable(name: "Users");
             });
-            builder.Entity<Amenity>().HasData(
-                new Amenity { Id = 2, WiFi = true, AllowPets = true, Parking = true, AirportShuttle = true, 
-                    LocalShuttle = false, Breakfast = true, Pool = false, Fitness = true, Restaurant = true },
 
-                new Amenity { Id = 3, WiFi = true, AllowPets = true, Parking = true, AirportShuttle = false,
-                    LocalShuttle = true, Breakfast = true, Pool = false, Fitness = true, Restaurant = true }
-                ) ;
+            builder.Seed();
+            //Seeds the database with data
         }
 
 

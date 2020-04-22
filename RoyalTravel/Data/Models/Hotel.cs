@@ -16,7 +16,7 @@ namespace RoyalTravel.Data.Models
         [Range(1, 10)]
         public int? Rating { get; set; }
 
-        [Required, Range(1,5)]
+        [Required, Range(1, 5)]
         public int Stars { get; set; }
 
         [Required]
@@ -24,20 +24,29 @@ namespace RoyalTravel.Data.Models
 
         public Amenity Amenity { get; set; } = new Amenity();
 
+        [ForeignKey(nameof(Amenity))]
+        public int AmenityId { get; set; }
+
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
 
         public Info Info { get; set; }
 
+        [ForeignKey(nameof(Info))]
+        public int InfoId { get; set; }
+
         public ICollection<Room> Rooms { get; set; } = new List<Room>();
 
         public Address Address { get; set; } = new Address();
+
+        [ForeignKey(nameof(Address))]
+        public int AddressId { get; set; }
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
 
         public byte[] Image { get; set; }
 
         public string LocationLink { get; set; }
-        //Location Link for Openstreetmap.org api
+        //Location Link for Openstreetmap.org html tag
 
     }
 }
