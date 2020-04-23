@@ -18,8 +18,6 @@ namespace RoyalTravel.ViewModels.Booking
 
         public List<Room> AvailableRooms { get; set; }
 
-        public string Rating { get; set; }
-
         public string AveragePrice { get; set; }
 
         public string PointsCost { get; set; }
@@ -29,6 +27,10 @@ namespace RoyalTravel.ViewModels.Booking
         public string Pool { get; set; }
 
         public string PetFriendly { get; set; }
+
+        public int Stars { get; set; }
+
+        public byte[] Image { get; set; }
 
 
     }

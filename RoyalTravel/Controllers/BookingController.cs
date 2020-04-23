@@ -39,10 +39,12 @@ namespace RoyalTravel.Controllers
 
         public async Task<IActionResult> SearchHotels([Bind]BookingInputViewModel inputModel)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(inputModel.Destination) || inputModel.Destination.Length > 30|| inputModel.CheckOut <= inputModel.CheckIn || inputModel.CheckIn == new DateTime(0001, 01, 01) || inputModel.CheckOut == new DateTime(0001, 01, 01) || inputModel.Adults <= 0 || inputModel.Children < 0 || inputModel.Destination.Length > 30 || inputModel.CheckIn < DateTime.Today || inputModel.CheckOut < DateTime.Today)
             {
                 throw new ArgumentOutOfRangeException("User Input data is incorrect! Make sure that departure date is greater than arrival date! Make sure that number of adults is not empty!");
             }
+            //Check if datetime is with default value, additional checks for other parameters
+
             var searchedHotelsByCity = await this.hotelService.SearchWithLocationAsync(inputModel.Destination);
             var searchedHotelsByName = await this.hotelService.SearchWithHotelNameAsync(inputModel.Destination);
 
@@ -63,7 +65,9 @@ namespace RoyalTravel.Controllers
                 currentViewModelHotel.PetFriendly = hotel.Amenity.AllowPets == true ? "Yes" : "No";
                 currentViewModelHotel.Wifi = hotel.Amenity.WiFi == true ? "Yes" : "No";
                 currentViewModelHotel.Pool = hotel.Amenity.Pool == true ? "Yes" : "No";
-                currentViewModelHotel.Rating = hotel.Rating.ToString();
+                currentViewModelHotel.Stars = hotel.Stars;
+                currentViewModelHotel.Image = hotel.Image;
+                
                 hotelViewModel.Add(currentViewModelHotel);
             }
             bookingViewModel.BookingOutputViewModels = hotelViewModel;
@@ -79,7 +83,7 @@ namespace RoyalTravel.Controllers
 
         public async Task<IActionResult> SelectHotel(int? id)
         {
-            if (id == null)
+            if (id == null || id == 0)
             {
                 return NotFound("Hotel not found!");
             }
@@ -173,7 +177,7 @@ namespace RoyalTravel.Controllers
             var selectedAvailableRoom =  selectedHotel.Rooms
                 .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
                 .FirstOrDefault(r => r.RoomType == roomType);
-            //Will get first available room by type since all rooms types added by admin are the same
+            //Will get first available room by type since all rooms types are the same
 
             if (checkOutDate <= checkInDate || adults < 1 || id == null ||
                 selectedAvailableRoom.MaxOccupancy < adults + children)

@@ -91,48 +91,109 @@
     <table class="table table-bordered">
         <thead>
             <tr align="center">
+                <th scope="col">Overview</th>
                 <th scope="col">Name</th>
                 <th scope="col">Location</th>
-                <th scope="col">Rating</th>
+                <th scope="col">Tier</th>
                 <th scope="col">Wifi</th>
                 <th scope="col">Pool</th>
-                <th scope="col">Allow Pets</th>
+                <th scope="col">Pets</th>
+                <th scope="col" colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var hotel in Model.BookingOutputViewModels)
             {
                 <tr align="center">
-
-                    <td>@hotel.HotelName</td>
+                    <td><img src="data:image;base64,@System.Convert.ToBase64String(hotel.Image)" width="150" height="150" /></td>
+                    <td class="font-weight-bold"><div class="text-align">@hotel.HotelName</td>
                     <td>@hotel.Address</td>
-                    <td>@hotel.Rating/10</td>
-                    <td>@hotel.Wifi</td>
-                    <td>@hotel.Pool</td>
-                    <td>@hotel.PetFriendly</td>
-                    <td>
-                        <form method="get">
-                            <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="BookHotel"
-                               asp-route-id="@hotel.HotelId"
-                               asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
-                               asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
-                               asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
-                               asp-route-children="@ViewContext.HttpContext.Request.Query["children"]">Check Rates</a>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="get">
-                            <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
-                        </form>
-                    </td>
+                    <td style="color:#FFD700;">
+                        @if (hotel.Stars == 1)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                        else if (hotel.Stars == 2)
+                        {
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        }
+                        else if (hotel.Stars == 3)
+                        {
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        }
+                        else if (hotel.Stars == 4)
+                        {
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        }
+                        else if (hotel.Stars == 5)
+                        {
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        }
 
-                </tr>
-            }
+                    </td>
+                    <td class="text-center">
+                        @if (hotel.Wifi == "Yes")
+                        {
+                            <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-times fa-lg" style="color:#CD0000";></i>
+                        }
+                    </td>
+                    <td>
+                        @if (hotel.Pool == "Yes")
+                        {
+                            <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
+                        }
+                    </td>
+                    <td>
+                        @if (hotel.PetFriendly == "Yes")
+                        {
+                            <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
+                        }
+                    </td>
+                <td>
+                    <form method="get">
+                        <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="BookHotel"
+                           asp-route-id="@hotel.HotelId"
+                           asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
+                           asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
+                           asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
+                           asp-route-children="@ViewContext.HttpContext.Request.Query["children"]">Check Rates</a>
+                    </form>
+                </td>
+                <td>
+                    <form method="get">
+                        <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
+                    </form>
+                </td>
+
+            </tr>
+        }
 
         </tbody>
     </table>
 }
-@{ 
+@{
     await Html.RenderPartialAsync("_InfoCardsPartial");
 }
 
@@ -146,7 +207,7 @@
             return date.valueOf() >= now.valueOf();
         },
         autoclose: true
-        
+
 
     }).on('changeDate', function (ev) {
         if (ev.date.valueOf() > checkout.datepicker("getDate").valueOf() || !checkout.datepicker("getDate").valueOf()) {
