@@ -18,5 +18,9 @@ namespace RoyalTravel.Services.Stays
 
         int GetRefundedPoints(string userId);
 
+        public List<Stay> GetEarning(string userId);
+
+        public List<Stay> AllReservations();
+
     }
 }

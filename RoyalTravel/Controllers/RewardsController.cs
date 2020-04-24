@@ -91,15 +91,7 @@ namespace RoyalTravel.Controllers
                 rewardsViewModel.StayViewModels.Add(stayViewModel);
             }
 
-            if (rewardsViewModel.StayViewModels.Count == 0)
-            {
-                return View();
-            }
-            else
-            {
-                return View(rewardsViewModel);
-            }
-
+            return View(rewardsViewModel);
         }
 
         public async Task<IActionResult> CancelReservation(int stayId)

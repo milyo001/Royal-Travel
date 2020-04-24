@@ -355,3 +355,7 @@ C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netco
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Views\Checkout\Index.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Administration\AllUsers.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\_ViewImports.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Administration\Earnings.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Administration\AllReservations.cshtml.g.cs

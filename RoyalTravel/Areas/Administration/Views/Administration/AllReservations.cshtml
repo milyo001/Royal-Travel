@@ -1,0 +1,45 @@
+﻿@model List<RoyalTravel.Areas.Administration.ViewModels.ReservationsViewModel>
+@{
+    ViewData["Title"] = "AllReservations";
+}
+
+<div class="row">
+    <table class="table table-borderless">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">Confirmation Number</th>
+                <th scope="col">Booked On</th>
+                <th scope="col">Money Spend</th>
+                <th scope="col">Arrival Date</th>
+                <th scope="col">Departure Date</th>
+                <th scope="col">Price/night</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Points Earned</th>
+                <th scope="col">Hotel Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Adults</th>
+                <th scope="col">Children</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var res in Model)
+            {
+                <tr class="text-center">
+                    <td>@res.ConfirmationNumber</td>
+                    <td>@res.BookedOn</td>
+                    <td>@res.MoneySpend</td>
+                    <td>@res.ArrivalDate</td>
+                    <td>@res.DepartureDate</td>
+                    <td>@res.PricePerNight</td>
+                    <td>@res.TotalPrice</td>
+                    <td>@res.PointsEarned</td>
+                    <td>@res.HotelName</td>
+                    <td>@res.UserName</td>
+                    <td>@res.Adults</td>
+                    <td>@res.Children</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="text-center btn btn-outline-danger" href="##" onClick="history.go(-1); return false;"> Go Back</a>
+</div>

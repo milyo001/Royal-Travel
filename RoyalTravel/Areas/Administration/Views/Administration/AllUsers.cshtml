@@ -1,0 +1,32 @@
+﻿@model List<RoyalTravel.Areas.Administration.ViewModels.AllUsersViewModel>
+@{
+    ViewData["Title"] = "AllUsers";
+}
+
+<div class="row">
+    <table class="table table-borderless text-center">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Confirmed Email</th>
+                <th scope="col">Total Points Used</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th>@user.FirstName</th>
+                    <td>@user.LastName</td>
+                    <td>@user.EmailAddress</td>
+                    <td>@user.EmailIsConfirmed</td>
+                    <td>@user.UsedPoints</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    <a class="text-center btn btn-outline-danger" href="##" onClick="history.go(-1); return false;"> Go Back</a>
+</div>

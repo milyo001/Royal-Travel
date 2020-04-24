@@ -1,0 +1,27 @@
+﻿@model RoyalTravel.Areas.Administration.ViewModels.EarningsViewModel
+
+@{
+    ViewData["Title"] = "Earnings";
+}
+
+<div class="row">
+    <table class="table table-borderless">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">Total Paid Reservations</th>
+                <th scope="col">Total Earnings</th>
+                <th scope="col">Royal Travel Commission</th>
+                <th scope="col">Earnings Commission</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center">
+                <th>@Model.TotalReservations</th>
+                <td>@Model.TotalEarnings $</td>
+                <td>@Model.Commission%</td>
+                <td>@Model.EarningsAfterTaxAndCommission $</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="text-center btn btn-outline-danger" href="##" onClick="history.go(-1); return false;"> Go Back</a>
+</div>

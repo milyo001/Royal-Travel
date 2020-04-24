@@ -20,6 +20,14 @@ namespace RoyalTravel.Services.Stays
             
         }
 
+        public List<Stay> AllReservations()
+        {
+            var allReservations = db.Stays
+                .OrderBy(s => s.BookedOn)
+                .ToList();
+            return allReservations;
+        }
+
         public void CancelReservation(int stayId)
         {
             var stay = this.FindStayById(stayId);
@@ -42,6 +50,15 @@ namespace RoyalTravel.Services.Stays
                  .ToList();
 
             return result;
+        }
+
+        public List<Stay> GetEarning(string userId)
+        {
+            var earningStays = db.Stays
+                .Where(s => s.ApplicationUserId == userId && s.IsCanceled == false && s.DepartureDate < DateTime.Today)
+                .ToList();
+            return earningStays;
+            //Returns only stays which are already expired
         }
 
         public int GetRefundedPoints(string userId)
@@ -72,5 +89,7 @@ namespace RoyalTravel.Services.Stays
             //Check if the total price is greater than or equal to the price per night
             db.SaveChanges();
         }
+
+
     }
 }

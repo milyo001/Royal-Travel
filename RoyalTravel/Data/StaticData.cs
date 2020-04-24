@@ -30,6 +30,7 @@ namespace RoyalTravel.Data
 
         public static int FreeNightPoints = 15000;
 
+        public static int Commission = 8;
 
     }
 }

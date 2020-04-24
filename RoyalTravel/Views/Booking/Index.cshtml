@@ -104,9 +104,9 @@
         <tbody>
             @foreach (var hotel in Model.BookingOutputViewModels)
             {
-                <tr align="center">
+                <tr style="text-align:center;">
                     <td><img src="data:image;base64,@System.Convert.ToBase64String(hotel.Image)" width="150" height="150" /></td>
-                    <td class="font-weight-bold"><div class="text-align">@hotel.HotelName</td>
+                    <td class="font-weight-bold">@hotel.HotelName</td>
                     <td>@hotel.Address</td>
                     <td style="color:#FFD700;">
                         @if (hotel.Stars == 1)
