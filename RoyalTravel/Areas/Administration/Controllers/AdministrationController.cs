@@ -65,6 +65,11 @@ namespace RoyalTravel.Areas.Administration.Controllers
         {
             var earningStays = staysService.GetEarning(userManager.GetUserId(User));
 
+            if (earningStays == null || earningStays.Count == 0)
+            {
+                return PartialView("_NoDataPartial");
+            }
+
             var earningsViewModel = new EarningsViewModel
             {
                 TotalReservations = earningStays.Count,
@@ -79,6 +84,10 @@ namespace RoyalTravel.Areas.Administration.Controllers
         public IActionResult AllReservations()
         {
             var allReservations = staysService.AllReservations();
+            if (allReservations == null || allReservations.Count <= 0)
+            {
+                return PartialView("_NoDataPartial");
+            }
             var reservationsViewModel = new List<ReservationsViewModel>();
 
             foreach (var stay in allReservations)

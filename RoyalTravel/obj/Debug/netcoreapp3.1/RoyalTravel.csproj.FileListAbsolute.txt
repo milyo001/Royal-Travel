@@ -359,3 +359,11 @@ C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netco
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\_ViewImports.cshtml.g.cs
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Administration\Earnings.cshtml.g.cs
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Administration\AllReservations.cshtml.g.cs
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\digital-art-398342_640.png
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\homeBackground.jpg
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\monastery.png
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\mountainView.png
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\royalPalace.png
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\tropical-1651426_640.jpg
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\wwwroot\Images\woman-591576_640.jpg
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Shared\_NoDataPartial.cshtml.g.cs

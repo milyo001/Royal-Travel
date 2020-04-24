@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
+using RoyalTravel.Areas.Administration.Controllers;
 using RoyalTravel.Controllers;
 using RoyalTravel.Data;
 using RoyalTravel.Data.Models;
@@ -384,6 +385,82 @@ namespace RoyalTravel.Tests
 
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => testController.BookHotel(1, checkIn,
             checkOut, 1, 0));
+        }
+
+        [Fact]
+        public void TestIfAdministrationControllerIndexActuinReturnsIActionResult()
+        {
+            var mockHotelService = new Mock<IHotelService>();
+            var mockUserService = new Mock<IUserService>();
+            var mockStaysService = new Mock<IStaysService>();
+            var store = new Mock<IUserStore<ApplicationUser>>();
+            var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+            mgr.Object.UserValidators.Add(new UserValidator<ApplicationUser>());
+            mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
+            var applicationDbcontext = new ApplicationDbContext(CreateNewContextOptions());
+
+            var testController = new AdministrationController(applicationDbcontext, mockUserService.Object, mockStaysService.Object, mgr.Object, mockHotelService.Object);
+
+            var indexResult = testController.Index();
+
+            Assert.IsAssignableFrom<IActionResult>(indexResult);
+        }
+
+        [Fact]
+        public void TestIfAdministrationControllerAllUsersActionReturnsIActionResult()
+        {
+            var mockHotelService = new Mock<IHotelService>();
+            var mockUserService = new Mock<IUserService>();
+            var mockStaysService = new Mock<IStaysService>();
+            var store = new Mock<IUserStore<ApplicationUser>>();
+            var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+            mgr.Object.UserValidators.Add(new UserValidator<ApplicationUser>());
+            mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
+            var applicationDbcontext = new ApplicationDbContext(CreateNewContextOptions());
+
+            var testController = new AdministrationController(applicationDbcontext, mockUserService.Object, mockStaysService.Object, mgr.Object, mockHotelService.Object);
+
+            var allUsersResult = testController.AllUsers();
+
+            Assert.IsAssignableFrom<IActionResult>(allUsersResult);
+        }
+
+        [Fact]
+        public void TestIfAdministrationControllerAllReservationsActionReturnsIActionResult()
+        {
+            var mockHotelService = new Mock<IHotelService>();
+            var mockUserService = new Mock<IUserService>();
+            var mockStaysService = new Mock<IStaysService>();
+            var store = new Mock<IUserStore<ApplicationUser>>();
+            var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+            mgr.Object.UserValidators.Add(new UserValidator<ApplicationUser>());
+            mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
+            var applicationDbcontext = new ApplicationDbContext(CreateNewContextOptions());
+
+            var testController = new AdministrationController(applicationDbcontext, mockUserService.Object, mockStaysService.Object, mgr.Object, mockHotelService.Object);
+
+            var allReservationsResult = testController.AllReservations();
+
+            Assert.IsAssignableFrom<PartialViewResult>(allReservationsResult);
+        }
+
+        [Fact]
+        public void TestIfAdministrationControllerEarningsActionReturnsIActionResult()
+        {
+            var mockHotelService = new Mock<IHotelService>();
+            var mockUserService = new Mock<IUserService>();
+            var mockStaysService = new Mock<IStaysService>();
+            var store = new Mock<IUserStore<ApplicationUser>>();
+            var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
+            mgr.Object.UserValidators.Add(new UserValidator<ApplicationUser>());
+            mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
+            var applicationDbcontext = new ApplicationDbContext(CreateNewContextOptions());
+            
+            var testController = new AdministrationController(applicationDbcontext, mockUserService.Object, mockStaysService.Object, mgr.Object, mockHotelService.Object);
+
+            var earningsResult = testController.Earnings();
+
+            Assert.IsAssignableFrom<PartialViewResult>(earningsResult);
         }
 
 
