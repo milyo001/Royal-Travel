@@ -1,28 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using RoyalTravel.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using RoyalTravel.Data.Models;
-using RoyalTravel.Services.User;
-using RoyalTravel.Services.Hotel;
-using Microsoft.AspNetCore.Mvc;
-using RoyalTravel.Services.Room;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Stripe;
-using RoyalTravel.Services.Stays;
-
 namespace RoyalTravel
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Razor;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using RoyalTravel.Data;
+    using RoyalTravel.Data.Models;
+    using RoyalTravel.Services.Hotel;
+    using RoyalTravel.Services.Room;
+    using RoyalTravel.Services.Stays;
+    using RoyalTravel.Services.User;
+    using Stripe;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)

@@ -1,32 +1,30 @@
 ﻿
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using RoyalTravel.Data;
-using RoyalTravel.Data.Models;
-using RoyalTravel.Services.Hotel;
-using RoyalTravel.Services.Room;
-using RoyalTravel.ViewModels;
-using RoyalTravel.ViewModels.Booking;
-using Stripe;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace RoyalTravel.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using RoyalTravel.Data;
+    using RoyalTravel.Data.Models;
+    using RoyalTravel.Services.Hotel;
+    using RoyalTravel.Services.Room;
+    using RoyalTravel.ViewModels;
+    using RoyalTravel.ViewModels.Booking;
+    using Stripe;
+
     public class BookingController : Controller
     {
-        private readonly ApplicationDbContext db;
         private readonly IHotelService hotelService;
         private readonly IRoomService roomService;
         private readonly UserManager<ApplicationUser> userManager;
-        public BookingController(ApplicationDbContext db, IHotelService hotelService, IRoomService roomService, UserManager<ApplicationUser> userManager)
+        public BookingController(IHotelService hotelService, IRoomService roomService, UserManager<ApplicationUser> userManager)
         {
-            this.db = db;
             this.hotelService = hotelService;
             this.roomService = roomService;
             this.userManager = userManager;
@@ -43,6 +41,7 @@ namespace RoyalTravel.Controllers
             {
                 throw new ArgumentOutOfRangeException("User Input data is incorrect! Make sure that departure date is greater than arrival date! Make sure that number of adults is not empty!");
             }
+
             //Check if datetime is with default value, additional checks for other parameters
 
             var searchedHotelsByCity = await this.hotelService.SearchWithLocationAsync(inputModel.Destination);
@@ -131,7 +130,9 @@ namespace RoyalTravel.Controllers
 
                 throw new ArgumentOutOfRangeException("Invalid dates!");
             };
-            //Validate the dates parsing if the user modified the URL
+             
+            // Validate the dates parsing if the user modified the URL
+            
 
             var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
@@ -158,10 +159,12 @@ namespace RoyalTravel.Controllers
                 RoomsGroup = selectedHotel.Rooms
                     .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
                     .Select(g => g.First()),
-                //Sorting and grouping the rooms to filter all rooms by room type, price and if they are smoking or non smoking
+
+                // Sorting and grouping the rooms to filter all rooms by room type, price and if they are smoking or non smoking
                 RoomsAvailability = selectedHotel.Rooms
-                    .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
-                //Gets all the rooms which are available
+                    .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate)),
+
+                // Gets all the rooms which are available
             };
 
 
@@ -173,17 +176,18 @@ namespace RoyalTravel.Controllers
         {
             var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
-            var selectedHotel = hotelService.FindSingleHotelById(id).Result;
-            var selectedAvailableRoom =  selectedHotel.Rooms
+            var selectedHotel = this.hotelService.FindSingleHotelById(id).Result;
+
+            // Will get first available room by given type
+            var selectedAvailableRoom = selectedHotel.Rooms
                 .Where(room => room.Stays.All(res => res.DepartureDate <= checkInDate || res.ArrivalDate >= checkOutDate))
                 .FirstOrDefault(r => r.RoomType == roomType);
-            //Will get first available room by type since all rooms types are the same
 
+            // Additional validation for all required parameters
             if (checkOutDate <= checkInDate || adults < 1 || id == null ||
                 selectedAvailableRoom.MaxOccupancy < adults + children)
             {
                 throw new ArgumentOutOfRangeException("Error: Invalid input data!");
-                //Additional validation for all required parameters
             }
 
             var reservation = new Stay
@@ -196,21 +200,21 @@ namespace RoyalTravel.Controllers
                 HotelId = (int)id,
                 RoomId = selectedAvailableRoom.Id,
                 MoneySpend = selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days,
-                ApplicationUserId = userManager.GetUserId(User),
-                ConfirmationNumber = roomService.GenerateConfirmationNumber(selectedHotel.Name),
+                ApplicationUserId = this.userManager.GetUserId(User),
+                ConfirmationNumber = this.roomService.GenerateConfirmationNumber(selectedHotel.Name),
                 Adults = adults,
                 Children = children,
                 BookedOn = DateTime.Now,
                 IsCanceled = false,
                 PointsSpend = 0,
-                PointsEarned = (int)selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days * StaticData.PointsMultiplier
+                PointsEarned = (int)selectedAvailableRoom.Price * (checkOutDate - checkInDate).Days * StaticData.PointsMultiplier,
             };
             //var user = await userManager.GetUserAsync(User);
             //user.Points += reservation.PointsEarned;
             //Add the points to the user account, so he/she can use it later on
 
             roomService.AddReservation(reservation);
-            var confirmResViewModel =  new ConfrimResViewModel
+            var confirmResViewModel = new ConfrimResViewModel
             {
                 StayId = reservation.Id,
                 HotelName = reservation.Hotel.Name,
@@ -223,7 +227,7 @@ namespace RoyalTravel.Controllers
                 CheckIn = reservation.ArrivalDate.ToString("MM/dd/yyyy"),
                 CheckOut = reservation.DepartureDate.ToString("MM/dd/yyyy"),
                 BookedOn = reservation.BookedOn,
-                IsCanceled = false
+                IsCanceled = false,
             };
 
             return this.View(confirmResViewModel);
