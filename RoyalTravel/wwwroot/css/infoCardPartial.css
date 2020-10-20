@@ -1,11 +1,13 @@
-
+.card-text{
+    color:black;
+}
 .card {
     max-width: 100%;
     height: auto;
 }
 
 p {
-    color: aliceblue;
+    color: black;
     font-weight: 900;
 }
 
@@ -14,17 +16,28 @@ p {
     margin: auto;
     overflow: hidden;
     width: 540px;
+
 }
 
-.card img{
-    max-width: 100%;
-    transition: all 0.4s;
-    display: block;
-    width: 100%;
-    height: auto;
-    transform: scale(1);
+    .card img {
+        max-width: 100%;
+        transition: all 0.4s;
+        display: block;
+        width: 100%;
+        height: auto;
+        opacity: 1;
+        transform: scale(1);
+        
+    }
+
+    .card:hover img {
+        transform: scale(1.3);
+        opacity: 0.2;
+    }
+
+.cardTextContext {
+    display: none;
 }
 
-.card:hover img {
-    transform: scale(1.3);
-}
+    
+

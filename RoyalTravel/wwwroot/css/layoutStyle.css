@@ -1,13 +1,14 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿:root {
+    --mainColor: #DCDCDC;
+}
+
 
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
-
-/* Provide sufficient contrast against white background */
+ 
 a {
   color: #0366d6;
 }
@@ -24,8 +25,7 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+
 html {
   font-size: 16px;
 }
@@ -51,15 +51,13 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
 .footer {
@@ -67,5 +65,43 @@ body {
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 60px; 
+}
+
+.navbar-brand {
+    font-family: 'Aclonica';
+    border-bottom: solid 4px black;
+    border-bottom-right-radius: 40%;
+    min-width:180px;
+    min-height: 36px;
+}
+
+.logo {
+    display: grid;
+    font-size: 25px;
+    background: -webkit-linear-gradient(360deg, rgba(236,240,1,0.7654412106639531) 47%, rgba(14,15,2,0.7178221630449055) 49%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px black;
+    padding: 8px;
+}
+
+.nav-btn {
+    font-family: 'Aclonica';
+    font-size:15px;
+    border-radius:10%;
+}
+
+.nav-btn:hover {
+  background:
+        linear-gradient(
+       to right,
+       var(--mainColor) 0%,
+       var(--mainColor) 5px,
+       transparent
+     );
+}
+
+.nav-icon {
+    color: black;
 }

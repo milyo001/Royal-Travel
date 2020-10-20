@@ -118,8 +118,14 @@
             //Add the default points per night value to the user
             staysService.UsePoints(stayId);
 
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> About()
+        {
+            return this.View("About");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
