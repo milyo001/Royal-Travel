@@ -1,0 +1,43 @@
+﻿.card-header-custom {
+    font-family: 'Aclonica';
+}
+
+.card-body-custom {
+    font-family: 'Aclonica';
+    color:whitesmoke;
+}
+
+
+p {
+    font-weight: 600;
+}
+
+.card {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    width: 540px;
+    border-radius: 25px;
+}
+
+.image-style {
+    display: block;
+    transition: all 0.4s;
+    transform: scale(1);
+    width: 540px;
+    height: 405px;
+    
+}
+
+
+.card:hover img {
+    transform: scale(1.3);
+    -webkit-filter: brightness(15%);
+}
+
+.cardTextContext {
+    display: none;
+}
+
+    
+

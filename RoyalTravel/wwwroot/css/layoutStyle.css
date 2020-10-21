@@ -1,4 +1,11 @@
-﻿:root {
+﻿@import url("https://fonts.googleapis.com/css?family=Aclonica");
+
+@font-face {
+    font-family: Arvo;
+    src: url('../resources/fonts/Arvo-Regular.ttf');
+}
+
+:root {
     --mainColor: #DCDCDC;
 }
 
@@ -69,7 +76,7 @@ body {
 }
 
 .navbar-brand {
-    font-family: 'Aclonica';
+    font-family: Arvo;
     border-bottom: solid 4px black;
     border-bottom-right-radius: 40%;
     min-width:180px;
@@ -87,8 +94,8 @@ body {
 }
 
 .nav-btn {
-    font-family: 'Aclonica';
-    font-size:15px;
+    font-family: Arvo;
+    font-size:16px;
     border-radius:10%;
 }
 
