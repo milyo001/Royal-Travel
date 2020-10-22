@@ -34,11 +34,11 @@ a {
 
 
 html {
-  font-size: 16px;
+  font-size: 15px;
 }
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -95,7 +95,7 @@ body {
 
 .nav-btn {
     font-family: Arvo;
-    font-size:16px;
+    font-size:15px;
     border-radius:10%;
 }
 

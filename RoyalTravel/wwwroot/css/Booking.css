@@ -4,3 +4,25 @@
 div {
     margin-top:6px;
 }
+
+.parent {
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    border-radius: 0 !important;
+}
+
+.form-control {
+    border-radius: 0 !important;
+    font-size: 12x;
+}
+
+.clickable {
+    cursor: pointer;
+}
