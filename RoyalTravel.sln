@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoyalTravel", "RoyalTravel\RoyalTravel.csproj", "{47448605-331E-4734-989C-5EA87016ADB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyalTravel.Tests", "RoyalTravelUnitTests\RoyalTravel.Tests.csproj", "{1E17D695-B2F5-4CBB-A76C-6E3F407AEA85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoyalTravel.Tests", "RoyalTravelUnitTests\RoyalTravel.Tests.csproj", "{1E17D695-B2F5-4CBB-A76C-6E3F407AEA85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4A98A5B4-44CF-4993-A540-A56D88B9CA95}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

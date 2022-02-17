@@ -32,13 +32,15 @@ namespace RoyalTravel
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                this.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
@@ -47,12 +49,13 @@ namespace RoyalTravel
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                
-            }); 
+            });
+
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireAdmin",
-                policy => policy.RequireRole("Administrator"));
+                options.AddPolicy(
+                    "RequireAdmin",
+                    policy => policy.RequireRole("Administrator"));
             });
             services.AddRazorPages().AddMvcOptions(options =>
             {

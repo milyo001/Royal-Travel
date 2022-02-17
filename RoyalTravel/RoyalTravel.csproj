@@ -31,6 +31,11 @@
 
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <Content Update="wwwroot\Images\digital-art-398342_640.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -16,7 +16,6 @@ namespace RoyalTravel.Controllers
     using RoyalTravel.Services.Room;
     using RoyalTravel.ViewModels;
     using RoyalTravel.ViewModels.Booking;
-    using Stripe;
 
     public class BookingController : Controller
     {
@@ -86,7 +85,8 @@ namespace RoyalTravel.Controllers
             {
                 return NotFound("Hotel not found!");
             }
-            var hotelQuery = await hotelService.FindHotelById(id);
+
+            var hotelQuery = await this.hotelService.FindHotelById(id);
             var hotel = hotelQuery.FirstOrDefault();
 
             var hotelViewModel = new SelectedHotelViewModel()
@@ -112,8 +112,9 @@ namespace RoyalTravel.Controllers
                 Policies = hotel.Info.Policies,
                 RoomTypes = hotel.Rooms
                     .GroupBy(r => new { r.RoomType, r.Price, r.Smoking })
-                    .Select(g => g.First())
+                    .Select(g => g.First()),
             };
+
             return this.View(hotelViewModel);
         }
 
@@ -127,13 +128,10 @@ namespace RoyalTravel.Controllers
             }
             catch (Exception)
             {
-
                 throw new ArgumentOutOfRangeException("Invalid dates!");
-            };
-             
-            // Validate the dates parsing if the user modified the URL
-            
+            }
 
+            // Validate the dates parsing if the user modified the URL
             var checkInDate = DateTime.ParseExact(checkIn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             var checkOutDate = DateTime.ParseExact(checkOut, "MM/dd/yyyy", CultureInfo.InvariantCulture);
             int nightsStay = (checkOutDate - checkInDate).Days;

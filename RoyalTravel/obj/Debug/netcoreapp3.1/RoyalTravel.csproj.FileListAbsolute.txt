@@ -154,7 +154,6 @@ C:\Users\Miroslav Ilyovski\source\repos\RoyalTravel\RoyalTravel\obj\Debug\netcor
 C:\Users\Miroslav Ilyovski\source\repos\RoyalTravel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\RoyalTravel.StaticWebAssets.xml
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\RoyalTravel.exe
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\RoyalTravel.deps.json
@@ -279,7 +278,6 @@ C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netco
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.csprojAssemblyReference.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\staticwebassets\RoyalTravel.StaticWebAssets.Manifest.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\staticwebassets\RoyalTravel.StaticWebAssets.xml
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.RazorAssemblyInfo.cache
@@ -371,3 +369,8 @@ C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netco
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.csproj.CoreCompileInputs.cache
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\stylecop.json
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\stylecop1.json
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\bin\Debug\netcoreapp3.1\stylecop2.json
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.csproj.AssemblyReference.cache
+C:\Users\Miroslav Ilyovski\source\repos\Royal-Travel\RoyalTravel\obj\Debug\netcoreapp3.1\RoyalTravel.GeneratedMSBuildEditorConfig.editorconfig

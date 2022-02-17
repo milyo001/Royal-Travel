@@ -11,6 +11,7 @@ namespace RoyalTravel.Data
         {
             this.Database.EnsureCreated();
         }
+
         public DbSet<Address> Addresses { get; set; }
 
         public DbSet<Amenity> Amenities { get; set; }
@@ -37,12 +38,6 @@ namespace RoyalTravel.Data
             });
 
             builder.Seed();
-            //Seeds the database with data
         }
-
-
     }
 }
-
-
-
