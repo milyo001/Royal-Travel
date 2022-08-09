@@ -1,16 +1,11 @@
 ﻿namespace RoyalTravel.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
-    using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
     using RoyalTravel.Data;
     using RoyalTravel.Data.Models;
     using RoyalTravel.Services.Stays;
