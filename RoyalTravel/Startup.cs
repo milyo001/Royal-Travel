@@ -34,7 +34,8 @@ namespace RoyalTravel
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                this.Configuration.GetConnectionString("DefaultConnection")));
+                this.Configuration
+                    .GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
@@ -71,14 +72,13 @@ namespace RoyalTravel
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
 
-                // The default HSTS value is 30 days. You may want to change this for production scenarios,
-                // see https://aka.ms/aspnetcore-hsts.
+                // This informs browsers that the site should only be accessed using HTTPS, and that
+                // any future attempts to access it using HTTP should automatically be converted to HTTPS
                 app.UseHsts();
             }
 
