@@ -15,6 +15,8 @@ namespace RoyalTravel
     using RoyalTravel.Services.Stays;
     using RoyalTravel.Services.User;
 
+    // Project started 2019 with .NET 3.1 - without the minimal hosting model.
+    // Apps migrating to .NET 6.0 don't need to use the new minimal hosting model.
     public class Startup
     {
         public Startup(IConfiguration configuration)
