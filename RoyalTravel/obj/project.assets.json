@@ -1917,18 +1917,6 @@
           }
         }
       },
-      "StyleCop/6.2.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/StyleCop.dll": {}
-        },
-        "runtime": {
-          "lib/net40/StyleCop.dll": {}
-        }
-      },
-      "StyleCop.Analyzers/1.1.118": {
-        "type": "package"
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -6393,44 +6381,6 @@
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "StyleCop/6.2.0": {
-      "sha512": "rCRzMtLw9tR5fBjMrO8FwNg/ybY3ktHusktboZz0UtzzRAbI6BC9/0BaXNtk+mFZ0eldKI7/BKSVaRvhVCqfAQ==",
-      "type": "package",
-      "path": "stylecop/6.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/StyleCop.dll",
-        "lib/net40/StyleCop.xml",
-        "stylecop.6.2.0.nupkg.sha512",
-        "stylecop.nuspec"
-      ]
-    },
-    "StyleCop.Analyzers/1.1.118": {
-      "sha512": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
-      "type": "package",
-      "path": "stylecop.analyzers/1.1.118",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "THIRD-PARTY-NOTICES.txt",
-        "analyzers/dotnet/cs/StyleCop.Analyzers.CodeFixes.dll",
-        "analyzers/dotnet/cs/StyleCop.Analyzers.dll",
-        "analyzers/dotnet/cs/de-DE/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/en-GB/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/es-MX/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/fr-FR/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/pl-PL/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/pt-BR/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/ru-RU/StyleCop.Analyzers.resources.dll",
-        "stylecop.analyzers.1.1.118.nupkg.sha512",
-        "stylecop.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
     "System.AppContext/4.3.0": {
       "sha512": "fKC+rmaLfeIzUhagxY17Q9siv/sPrjjKcfNg1Ic8IlQkZLipo8ljcaZQu4VtI4Jqbzjc2VTjzGLF6WmsRXAEgA==",
       "type": "package",
@@ -10120,8 +10070,6 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.8",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.8",
-      "StyleCop >= 6.2.0",
-      "StyleCop.Analyzers >= 1.1.118",
       "jQuery >= 3.6.0"
     ]
   },
@@ -10202,16 +10150,6 @@
             "target": "Package",
             "version": "[6.0.8, )"
           },
-          "StyleCop": {
-            "target": "Package",
-            "version": "[6.2.0, )"
-          },
-          "StyleCop.Analyzers": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[1.1.118, )"
-          },
           "jQuery": {
             "target": "Package",
             "version": "[3.6.0, )"
@@ -10238,17 +10176,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'StyleCop 6.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
-      "libraryId": "StyleCop",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  }
 }
