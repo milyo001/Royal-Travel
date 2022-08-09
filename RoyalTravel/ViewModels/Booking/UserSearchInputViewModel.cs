@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace RoyalTravel.ViewModels.Booking
 {
     
-    public class BookingInputViewModel 
+    public class UserSearchInputViewModel 
     {
         [Required, StringLength(30)]
         public string Destination { get; set; }

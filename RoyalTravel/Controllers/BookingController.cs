@@ -22,6 +22,7 @@ namespace RoyalTravel.Controllers
         private readonly IHotelService hotelService;
         private readonly IRoomService roomService;
         private readonly UserManager<ApplicationUser> userManager;
+        
         public BookingController(IHotelService hotelService, IRoomService roomService, UserManager<ApplicationUser> userManager)
         {
             this.hotelService = hotelService;
@@ -34,9 +35,16 @@ namespace RoyalTravel.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SearchHotels([Bind]BookingInputViewModel inputModel)
+        public async Task<IActionResult> SearchHotels([Bind]UserSearchInputViewModel inputModel)
         {
-            if (string.IsNullOrWhiteSpace(inputModel.Destination) || inputModel.Destination.Length > 30|| inputModel.CheckOut <= inputModel.CheckIn || inputModel.CheckIn == new DateTime(0001, 01, 01) || inputModel.CheckOut == new DateTime(0001, 01, 01) || inputModel.Adults <= 0 || inputModel.Children < 0 || inputModel.Destination.Length > 30 || inputModel.CheckIn < DateTime.Today || inputModel.CheckOut < DateTime.Today)
+            if (string.IsNullOrWhiteSpace(inputModel.Destination) || 
+                inputModel.Destination.Length > 30|| inputModel.CheckOut <= inputModel.CheckIn ||
+                inputModel.CheckIn == new DateTime(0001, 01, 01) || 
+                inputModel.CheckOut == new DateTime(0001, 01, 01) || 
+                inputModel.Adults <= 0 || inputModel.Children < 0 || 
+                inputModel.Destination.Length > 30 || 
+                inputModel.CheckIn < DateTime.Today || 
+                inputModel.CheckOut < DateTime.Today)
             {
                 throw new ArgumentOutOfRangeException("User Input data is incorrect! Make sure that departure date is greater than arrival date! Make sure that number of adults is not empty!");
             }
@@ -51,11 +59,11 @@ namespace RoyalTravel.Controllers
             //Searching with city is with priority and searching with name is optional
 
             var bookingViewModel = new BookingViewModel();
-            var hotelViewModel = new List<BookingOutputViewModel>();
+            var hotelViewModel = new List<SearchResultsViewModel>();
 
             foreach (var hotel in searchResultList)
             {
-                var currentViewModelHotel = new BookingOutputViewModel();
+                var currentViewModelHotel = new SearchResultsViewModel();
                 currentViewModelHotel.HotelId = hotel.Id;
                 currentViewModelHotel.HotelName = hotel.Name;
                 currentViewModelHotel.Address = hotel.Address.Street
@@ -68,15 +76,15 @@ namespace RoyalTravel.Controllers
                 
                 hotelViewModel.Add(currentViewModelHotel);
             }
-            bookingViewModel.BookingOutputViewModels = hotelViewModel;
+            bookingViewModel.SearchResults = hotelViewModel;
             //Contains information about the searched hotels;
-            bookingViewModel.InputModel = inputModel;
+
             //Contains information about the input, including validation
+            bookingViewModel.UserSearchInput = inputModel;
 
             //TODO Implement Paging 
-
-            return this.View("Index", bookingViewModel);
-
+            
+            return this.Accepted("Index", bookingViewModel);
         }
 
         public async Task<IActionResult> SelectHotel(int? id)

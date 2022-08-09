@@ -46,69 +46,69 @@ namespace RoyalTravel.Tests
             get
             {
                 //Load the sample data from some source like JSON or CSV here.
-                var sampleDataList = new List<BookingInputViewModel>
+                var sampleDataList = new List<UserSearchInputViewModel>
                 {
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(0001, 01, 01),
                         CheckOut = new DateTime(2020, 12, 12), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2020, 12, 12),
                         CheckOut = new DateTime(0001, 01, 01), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "TESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTESTTEST", CheckIn = new DateTime(2020, 12, 15),
                         CheckOut = new DateTime(2020, 12, 16), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "&*(@!*)(!@*#()@!&^(@&^(!*(#@(*#@()#@()@(*)#@(*)@!#(*)#@!(*!@#(*)@#(", CheckIn = new DateTime(2020, 12, 15),
                         CheckOut = new DateTime(2020, 12, 16), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "", CheckIn = new DateTime(2020, 12, 15),
                         CheckOut = new DateTime(2020, 12, 16), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = " ", CheckIn = new DateTime(2020, 12, 15),
                         CheckOut = new DateTime(2020, 12, 16), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2025, 12, 15),
                         CheckOut = new DateTime(2025, 12, 12), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2025, 12, 15),
                         CheckOut = new DateTime(2025, 12, 17), Adults = 0, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2000, 12, 12),
                         CheckOut = new DateTime(2025, 12, 12), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2000, 12, 12),
                         CheckOut = new DateTime(2000, 12, 13), Adults = 1, Children = 1
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2025, 12, 12),
                         CheckOut = new DateTime(2025, 12, 15), Adults = 0, Children = 0
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2025, 12, 12),
                         CheckOut = new DateTime(2025, 12, 15), Adults = -1, Children = 0
                     },
-                    new BookingInputViewModel
+                    new UserSearchInputViewModel
                     {
                         Destination = "bansko", CheckIn = new DateTime(2025, 12, 12),
                         CheckOut = new DateTime(2025, 12, 15), Adults = 1, Children = -1
@@ -311,7 +311,7 @@ namespace RoyalTravel.Tests
 
 
         [Theory, MemberData(nameof(TestBookingInputViewModelInvalidData))]
-        public void TestBookingControllerSearchHotelsActionSearchHotelsInvalidData(BookingInputViewModel testInputViewModel)
+        public void TestBookingControllerSearchHotelsActionSearchHotelsInvalidData(UserSearchInputViewModel testInputViewModel)
         {
             var mockHotelService = new Mock<IHotelService>();
             var applicationDbcontext = new ApplicationDbContext(CreateNewContextOptions());

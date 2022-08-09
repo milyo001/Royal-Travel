@@ -7,12 +7,12 @@ namespace RoyalTravel.ViewModels.Booking
     {
         public BookingViewModel()
         {
-            this.BookingOutputViewModels = new List<BookingOutputViewModel>();
-            this.InputModel = new BookingInputViewModel();
+            this.SearchResults = new List<SearchResultsViewModel>();
+            this.UserSearchInput = new UserSearchInputViewModel();
         }
+        
+        public List<SearchResultsViewModel> SearchResults { get; set; }
 
-        public List<BookingOutputViewModel> BookingOutputViewModels { get; set; }
-
-        public BookingInputViewModel InputModel { get; set; }
+        public UserSearchInputViewModel UserSearchInput { get; set; }
     }
 }

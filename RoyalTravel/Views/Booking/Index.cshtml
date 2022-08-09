@@ -3,16 +3,19 @@
 }
 
 @model RoyalTravel.ViewModels.Booking.BookingViewModel
+ 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Search Hotel</title>
-
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+    <link rel="stylesheet" href="~/css/Booking.css" />
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-    <link rel="stylesheet" href="~/css/Booking.css"/>
+    
 
 </head>
 <div class="parent">
@@ -20,19 +23,23 @@
         <div class="row">
             <div class="col">
                 <label for="destination">Location</label>
-                <input asp-for="InputModel.Destination" class="form-control input-data" type="text" id="destination" width="276" name="destination" placeholder="City/Town" required />
+                <input asp-for="UserSearchInput.Destination" class="form-control input-data" 
+                type="text" id="destination" width="276" name="destination" placeholder="City/Town" required />
             </div>
             <div class="col">
                 <label for="dp1">Arrival</label>
-                <input id="dp1" type="text" class="form-control clickable input-md" placeholder="&#xf133;  Check-In" width="276" name="checkIn" required autocomplete="off">
+                <input id="dp1" type="text" class="form-control clickable input-md" placeholder="&#xf133;  Check-In"
+                width="276" name="checkIn" required autocomplete="off">
             </div>
             <div class="col">
                 <label for="dp2">Departure</label>
-                <input id="dp2" type="text" class="form-control clickable input-md" placeholder="&#xf133;  Check-Out" width="276" name="checkOut" required autocomplete="off">
+                <input id="dp2" type="text" class="form-control clickable input-md" placeholder="&#xf133;  Check-Out"
+                width="276" name="checkOut" required autocomplete="off">
             </div>
             <div class="col">
                 <label for="adults">Adults</label>
-                <select asp-for="InputModel.Adults" class="form-control" id="adults" width="276" name="adults" required>
+                <select asp-for="UserSearchInput.Adults" class="form-control" id="adults" width="276"
+                name="adults" required>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -54,163 +61,169 @@
             </div>
         </div>
         <div style="margin-top:24px" class="row">
-            <button type="submit" class="btn btn-primary btn-lg btn-block" asp-controller="Booking" asp-action="SearchHotels">Find Hotels</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" 
+            asp-controller="Booking"
+            asp-action="SearchHotels">Find Hotels</button>
         </div>
     </form>
 </div>
 
-@if (Model.BookingOutputViewModels.Count() != 0)
+@if (Model.SearchResults.Count() != 0)
 {
     <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr align="center">
-                        <th scope="col">Overview</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Tier</th>
-                        <th scope="col">Wifi</th>
-                        <th scope="col">Pool</th>
-                        <th scope="col">Pets</th>
-                        <th scope="col" colspan="2">Actions</th>
+        <table class="table table-bordered">
+            <thead>
+                <tr align="center">
+                    <th scope="col">Overview</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Tier</th>
+                    <th scope="col">Wifi</th>
+                    <th scope="col">Pool</th>
+                    <th scope="col">Pets</th>
+                    <th scope="col" colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hotel in Model.SearchResults)
+                {
+                    <tr style="text-align:center;">
+                        <td><img src="data:image;base64,@System.Convert.ToBase64String(hotel.Image)" width="150" height="150" /></td>
+                        <td class="font-weight-bold">@hotel.HotelName</td>
+                        <td>@hotel.Address</td>
+                        <td style="color:#FFD700;">
+                            @if (hotel.Stars == 1)
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                            else if (hotel.Stars == 2)
+                            {
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            }
+                            else if (hotel.Stars == 3)
+                            {
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            }
+                            else if (hotel.Stars == 4)
+                            {
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            }
+                            else if (hotel.Stars == 5)
+                            {
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            }
+
+                        </td>
+                        <td class="text-center">
+                            @if (hotel.Wifi == "Yes")
+                            {
+                                <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
+                            }
+                        </td>
+                        <td>
+                            @if (hotel.Pool == "Yes")
+                            {
+                                <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
+                            }
+                        </td>
+                        <td>
+                            @if (hotel.PetFriendly == "Yes")
+                            {
+                                <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
+                            }
+                        </td>
+                        <td>
+                            <form method="get">
+                             <a type="submit" class="btn btn-success" 
+                                asp-controller="Booking"
+                                asp-action="BookHotel"
+                                asp-route-id="@hotel.HotelId"
+                                asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
+                                asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
+                                asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
+                                asp-route-children="@ViewContext.HttpContext.Request.Query["children"]">
+                                Check Rates
+                            </a>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get">
+                                <a type="submit" class="btn btn-primary" asp-controller="Booking" 
+                                asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
+                            </form>
+                        </td>
+
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var hotel in Model.BookingOutputViewModels)
-                    {
+                }
 
-                        <tr style="text-align:center;">
-                            <td><img src="data:image;base64,@System.Convert.ToBase64String(hotel.Image)" width="150" height="150" /></td>
-                            <td class="font-weight-bold">@hotel.HotelName</td>
-                            <td>@hotel.Address</td>
-                            <td style="color:#FFD700;">
-                                @if (hotel.Stars == 1)
-                                {
-                                    <i class="fas fa-star"></i>
-                                }
-                                else if (hotel.Stars == 2)
-                                {
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                }
-                                else if (hotel.Stars == 3)
-                                {
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                }
-                                else if (hotel.Stars == 4)
-                                {
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                }
-                                else if (hotel.Stars == 5)
-                                {
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                }
+            </tbody>
+        </table>
+    </div>
+}
+@{
+    await Html.RenderPartialAsync("_InfoCardsPartial");
+}
 
-                            </td>
-                            <td class="text-center">
-                                @if (hotel.Wifi == "Yes")
-                                {
-                                    <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
-                                }
-                            </td>
-                            <td>
-                                @if (hotel.Pool == "Yes")
-                                {
-                                    <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
-                                }
-                            </td>
-                            <td>
-                                @if (hotel.PetFriendly == "Yes")
-                                {
-                                    <i class="fas fa-check fa-lg" style="color:#83F52C;"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-times fa-lg" style="color:#CD0000" ;></i>
-                                }
-                            </td>
-                            <td>
-                                <form method="get">
-                                    <a type="submit" class="btn btn-success" asp-controller="Booking" asp-action="BookHotel"
-                                       asp-route-id="@hotel.HotelId"
-                                       asp-route-checkIn="@ViewContext.HttpContext.Request.Query["checkIn"]"
-                                       asp-route-checkOut="@ViewContext.HttpContext.Request.Query["checkOut"]"
-                                       asp-route-adults="@ViewContext.HttpContext.Request.Query["adults"]"
-                                       asp-route-children="@ViewContext.HttpContext.Request.Query["children"]">Check Rates</a>
-                                </form>
-                            </td>
-                            <td>
-                                <form method="get">
-                                    <a type="submit" class="btn btn-primary" asp-controller="Booking" asp-action="SelectHotel" asp-route-id="@hotel.HotelId">Details</a>
-                                </form>
-                            </td>
 
-                        </tr>
-                    }
+<script>
+    var nowTemp = new Date();
+    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
-                </tbody>
-            </table>
-        </div>
+    var checkin = $('#dp1').datepicker({
+
+        beforeShowDay: function(date) {
+            return date.valueOf() >= now.valueOf();
+        },
+        autoclose: true
+
+
+    }).on('changeDate', function(ev) {
+        if (ev.date.valueOf() > checkout.datepicker("getDate").valueOf() || !checkout.datepicker("getDate").valueOf()) {
+
+            var newDate = new Date(ev.date);
+            newDate.setDate(newDate.getDate() + 1);
+            checkout.datepicker("update", newDate);
+
+        }
+        $('#dp2')[0].focus();
+    });
+
+
+    var checkout = $('#dp2').datepicker({
+        beforeShowDay: function(date) {
+            if (!checkin.datepicker("getDate").valueOf()) {
+                return date.valueOf() >= new Date().valueOf();
+            } else {
+                return date.valueOf() > checkin.datepicker("getDate").valueOf();
             }
-            @{
-                await Html.RenderPartialAsync("_InfoCardsPartial");
-            }
+        },
+        autoclose: true
 
+    }).on('changeDate', function(ev) { });
 
-            <script>
-                var nowTemp = new Date();
-                var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-
-                var checkin = $('#dp1').datepicker({
-
-                    beforeShowDay: function (date) {
-                        return date.valueOf() >= now.valueOf();
-                    },
-                    autoclose: true
-
-
-                }).on('changeDate', function (ev) {
-                    if (ev.date.valueOf() > checkout.datepicker("getDate").valueOf() || !checkout.datepicker("getDate").valueOf()) {
-
-                        var newDate = new Date(ev.date);
-                        newDate.setDate(newDate.getDate() + 1);
-                        checkout.datepicker("update", newDate);
-
-                    }
-                    $('#dp2')[0].focus();
-                });
-
-
-                var checkout = $('#dp2').datepicker({
-                    beforeShowDay: function (date) {
-                        if (!checkin.datepicker("getDate").valueOf()) {
-                            return date.valueOf() >= new Date().valueOf();
-                        } else {
-                            return date.valueOf() > checkin.datepicker("getDate").valueOf();
-                        }
-                    },
-                    autoclose: true
-
-                }).on('changeDate', function (ev) { });
-
-            </script>
+</script>
 
 
 

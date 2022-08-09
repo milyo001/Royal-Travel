@@ -1,13 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-using RoyalTravel.Data.Models;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace RoyalTravel.ViewModels.Booking
+﻿namespace RoyalTravel.ViewModels.Booking
 {
+    using RoyalTravel.Data.Models;
+    using System.Collections.Generic;
     
-    public class BookingOutputViewModel
+    public class SearchResultsViewModel
     {
 
         public int HotelId { get; set; }
