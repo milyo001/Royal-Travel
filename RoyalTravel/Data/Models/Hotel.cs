@@ -43,10 +43,11 @@ namespace RoyalTravel.Data.Models
 
         public ICollection<Stay> Stays { get; set; } = new List<Stay>();
 
-        public byte[] Image { get; set; }
+        public string ImageUrl { get; set; }
 
+        // Location Link for Openstreetmap.org
         public string LocationLink { get; set; }
-        //Location Link for Openstreetmap.org html tag
+        
 
     }
 }

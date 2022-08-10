@@ -72,7 +72,7 @@ namespace RoyalTravel.Controllers
                 currentViewModelHotel.Wifi = hotel.Amenity.WiFi == true ? "Yes" : "No";
                 currentViewModelHotel.Pool = hotel.Amenity.Pool == true ? "Yes" : "No";
                 currentViewModelHotel.Stars = hotel.Stars;
-                currentViewModelHotel.Image = hotel.Image;
+                currentViewModelHotel.ImageUrl = hotel.ImageUrl;
                 
                 hotelViewModel.Add(currentViewModelHotel);
             }
@@ -84,7 +84,7 @@ namespace RoyalTravel.Controllers
 
             //TODO Implement Paging 
             
-            return this.Accepted("Index", bookingViewModel);
+            return this.View("Index", bookingViewModel);
         }
 
         public async Task<IActionResult> SelectHotel(int? id)

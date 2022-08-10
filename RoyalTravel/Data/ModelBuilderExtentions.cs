@@ -117,7 +117,6 @@ namespace RoyalTravel.Data
                     Policies = "Cancel 24 hours prior to 14:00h day of arrival.",
                     PropertyDescription = @"An Italian and a Bulgarian restaurant can be found next to the hotel. The famous Boyana Church is 400 m away and the National History Museum is 0.7 mi away.
                       The center of Sofia can be reached by car in 15 minutes and the Simeonovo Ski Elevator in 10 minutes.",
-
                     AmenitiesInfo = "List with additional amenities...here."
                 },
                 new Info
@@ -131,11 +130,12 @@ namespace RoyalTravel.Data
                     Policies = "Cancel 24 hours prior to 14:00h day of arrival.",
                     PropertyDescription = @"An Italian and a Bulgarian restaurant can be found next to the hotel. The famous Boyana Church is 400 m away and the National History Museum is 0.7 mi away.
                       The center of Sofia can be reached by car in 15 minutes and the Simeonovo Ski Elevator in 10 minutes.",
-
                     AmenitiesInfo = "List with additional amenities...here."
                 }
                 );
 
+            // Seed 25 rooms for testing, 5 of each room type.
+            // Smoking rooms are considered as a diffrent room type by default
             builder.Entity<Room>().HasData(
             new Room
             {
@@ -569,7 +569,7 @@ namespace RoyalTravel.Data
                 Price = 273.73m,
                 HotelId = 3
             });
-            // Seed 25 rooms for testing, 5 of each room type, Smoking rooms are considered as a diffrent room type by default
+            
             builder.Entity<Hotel>().HasData(
                 new
                 {
@@ -582,7 +582,7 @@ namespace RoyalTravel.Data
                     AmenityId = 2,
                     InfoId = 1,
                     LocationLink = @"https://www.openstreetmap.org/export/embed.html?bbox=23.468127250671387%2C41.82734700208549%2C23.481924533843994%2C41.83267922868568&amp;layer=mapnik&amp;marker=41.83001317090565%2C23.47502589225769",
-                    Image = CustomImageReader.ReadFile("wwwroot/Images/monastery.png")
+                    ImageUrl = @"https://cdn.pixabay.com/photo/2016/01/22/08/14/las-vegas-1155431_1280.jpg"
                 },
                 new
                 {
@@ -595,12 +595,12 @@ namespace RoyalTravel.Data
                     AmenityId = 3,
                     InfoId = 3,
                     LocationLink = @"https://www.openstreetmap.org/export/embed.html?bbox=23.30752730369568%2C42.703512202193544%2C23.31756949424744%2C42.70877082903225&amp;layer=mapnik&amp;marker=42.70614157129563%2C23.312548398971558",
-                    Image = CustomImageReader.ReadFile("wwwroot/Images/royalPalace.png")
+                    ImageUrl = @"https://cdn.pixabay.com/photo/2015/08/21/10/10/les-invalides-898679_1280.jpg"
                 },
                 new
                 {
                     Id = 3,
-                    Name = "Mountain Garden by Royal",
+                    Name = "Skyscraper Hotel",
                     Rating = 10,
                     Stars = 5,
                     AddressId = 3,
@@ -608,7 +608,7 @@ namespace RoyalTravel.Data
                     AmenityId = 4,
                     InfoId = 2,
                     LocationLink = @"https://www.openstreetmap.org/export/embed.html?bbox=23.47535848617554%2C41.82475655017072%2C23.485400676727295%2C41.830088992534364&amp;layer=mapnik&amp;marker=41.82742282687206%2C23.480379581451416",
-                    Image = CustomImageReader.ReadFile("wwwroot/Images/mountainView.png")
+                    ImageUrl = @"https://cdn.pixabay.com/photo/2013/09/05/07/49/marina-bay-sands-179023_1280.jpg"
                 });
 
         }

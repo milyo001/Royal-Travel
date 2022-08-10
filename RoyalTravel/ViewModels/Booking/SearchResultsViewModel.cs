@@ -26,7 +26,7 @@
 
         public int Stars { get; set; }
 
-        public byte[] Image { get; set; }
+        public string ImageUrl { get; set; }
 
 
     }
