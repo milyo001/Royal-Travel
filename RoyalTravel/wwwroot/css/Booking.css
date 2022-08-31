@@ -32,4 +32,13 @@ input {
 
 .table-responsive{
     margin-top: 30px;
+    margin-bottom: 80px;
+}
+
+.no-results {
+    margin: 26vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    text-align: center;
 }
