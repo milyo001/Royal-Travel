@@ -29,3 +29,7 @@ input {
 .clickable {
     cursor: pointer;
 }
+
+.table-responsive{
+    margin-top: 30px;
+}
